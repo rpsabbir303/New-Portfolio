@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Download, Globe, Loader2, Mail, MapPin, Phone } from "lucide-react";
+import { Download, Loader2, Mail, MapPin, Phone } from "lucide-react";
 import { site } from "@/data/site";
 import { resumeHero } from "@/data/resume";
 import { Container } from "@/components/ui/Container";
@@ -15,8 +15,6 @@ import {
 import { useResumePdfDownload } from "@/hooks/useResumePdfDownload";
 import { getSectionHref } from "@/lib/navigation";
 import "@/components/footer/footer.css";
-
-const PORTFOLIO_URL = "https://rpsabbir303.framer.website";
 
 const FOOTER_SOCIAL = [
   {
@@ -33,11 +31,6 @@ const FOOTER_SOCIAL = [
     label: "Dribbble",
     href: site.social.dribbble,
     Icon: DribbbleIcon,
-  },
-  {
-    label: "Portfolio",
-    href: PORTFOLIO_URL,
-    Icon: Globe,
   },
 ] as const;
 

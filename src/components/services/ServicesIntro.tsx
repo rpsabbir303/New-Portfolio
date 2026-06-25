@@ -28,12 +28,7 @@ export function ServicesIntro() {
       </SectionReveal>
 
       <SectionReveal delay={0.26}>
-        <div className="flex flex-wrap gap-3">
-          <Button href={servicesContent.cta.href}>{servicesContent.cta.label}</Button>
-          <Button href="/services" variant="ghost">
-            Explore All Services
-          </Button>
-        </div>
+        <Button href={servicesContent.cta.href}>{servicesContent.cta.label}</Button>
       </SectionReveal>
     </div>
   );

@@ -2,15 +2,19 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { LayoutGrid, Smartphone } from "lucide-react";
-import type { Project } from "@/data/projects";
+import { getProjectCaseStudyHref, type Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import "@/components/projects/project-thumbnail.css";
 
 export type ProjectThumbnailProject = Pick<
   Project,
-  "thumbnail" | "title" | "accent" | "caseStudyUrl" | "category"
+  | "thumbnail"
+  | "title"
+  | "accent"
+  | "category"
+  | "slug"
+  | "dribbbleUrl"
 >;
 
 type ProjectThumbnailMediaProps = {
@@ -24,10 +28,6 @@ type ProjectThumbnailMediaProps = {
 type ProjectThumbnailProps = ProjectThumbnailMediaProps & {
   linkable?: boolean;
 };
-
-function isExternalUrl(href: string): boolean {
-  return href.startsWith("http://") || href.startsWith("https://");
-}
 
 function ProjectThumbnailFallback({
   title,
@@ -109,7 +109,7 @@ export function ProjectThumbnail({
   className,
   linkable = true,
 }: ProjectThumbnailProps) {
-  const external = isExternalUrl(project.caseStudyUrl);
+  const href = getProjectCaseStudyHref(project);
 
   const media = (
     <ProjectThumbnailMedia
@@ -125,10 +125,10 @@ export function ProjectThumbnail({
     return media;
   }
 
-  if (external) {
+  if (href) {
     return (
       <a
-        href={project.caseStudyUrl}
+        href={href}
         target="_blank"
         rel="noopener noreferrer"
         className="project-thumbnail__link block"
@@ -138,14 +138,5 @@ export function ProjectThumbnail({
       </a>
     );
   }
-
-  return (
-    <Link
-      href={project.caseStudyUrl}
-      className="project-thumbnail__link block"
-      aria-label={`View case study for ${project.title}`}
-    >
-      {media}
-    </Link>
-  );
+  return media;
 }

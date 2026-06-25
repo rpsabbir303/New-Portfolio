@@ -1,27 +1,15 @@
-import {
-  isPossiblePhoneNumber,
-  isValidPhoneNumber,
-  parsePhoneNumber,
-  type CountryCode,
-} from "libphonenumber-js";
+const PHONE_TEXT_PATTERN = /^\+?[0-9\s\-()]{8,20}$/;
+const NON_DIGIT_PATTERN = /\D/g;
 
 export const PHONE_INVALID_DISPLAY_MESSAGE =
-  "Please enter a valid phone number for the selected country.";
+  "Please enter a valid phone number.";
 
-export function getNationalNumberLength(phone: string): number {
-  const trimmed = phone?.trim() ?? "";
-  if (!trimmed) return 0;
-
-  try {
-    const parsed = parsePhoneNumber(trimmed);
-    return parsed?.nationalNumber?.length ?? 0;
-  } catch {
-    return 0;
-  }
+function getDigitCount(phone: string): number {
+  return phone.replace(NON_DIGIT_PATTERN, "").length;
 }
 
 export function isPhoneEffectivelyEmpty(phone: string): boolean {
-  return getNationalNumberLength(phone) === 0;
+  return getDigitCount(phone?.trim() ?? "") === 0;
 }
 
 export function validateInternationalPhone(phone: string): boolean {
@@ -31,83 +19,40 @@ export function validateInternationalPhone(phone: string): boolean {
 /** Used by form schema — empty phone is invalid. */
 export function getPhoneValidationError(phone: string): string | null {
   const trimmed = phone?.trim() ?? "";
-  if (!trimmed || isPhoneEffectivelyEmpty(trimmed)) {
+  if (!trimmed) {
     return "Please enter a valid phone number.";
   }
 
-  try {
-    const parsed = parsePhoneNumber(trimmed);
-
-    if (!parsed?.nationalNumber) {
-      return "Please enter a valid phone number.";
-    }
-
-    if (!isPossiblePhoneNumber(trimmed) || !isValidPhoneNumber(trimmed)) {
-      return "Please enter a valid phone number.";
-    }
-
-    return null;
-  } catch {
+  if (!PHONE_TEXT_PATTERN.test(trimmed)) {
     return "Please enter a valid phone number.";
   }
-}
 
-function hasDialCodeOnly(phone: string): boolean {
-  const trimmed = phone?.trim() ?? "";
-  if (!trimmed) return false;
-  return isPhoneEffectivelyEmpty(trimmed) && trimmed.replace(/\D/g, "").length > 0;
+  return null;
 }
 
 /** Used by the UI — fully empty phone shows no error until submit. */
 export function getPhoneDisplayError(phone: string): string | null {
   const trimmed = phone?.trim() ?? "";
   if (!trimmed) return null;
-  if (hasDialCodeOnly(trimmed)) return PHONE_INVALID_DISPLAY_MESSAGE;
-  if (isPhoneEffectivelyEmpty(trimmed)) return null;
-  if (getPhoneValidationError(trimmed) === null) return null;
-  return PHONE_INVALID_DISPLAY_MESSAGE;
+  return getPhoneValidationError(trimmed);
 }
 
+/**
+ * Keep plain text phone input, but normalize by removing separators.
+ * Returns null when the value is invalid.
+ */
 export function formatPhoneE164(phone: string): string | null {
-  try {
-    const parsed = parsePhoneNumber(phone);
-    if (!parsed?.isValid()) return null;
-    return parsed.format("E.164");
-  } catch {
-    return null;
-  }
-}
+  const trimmed = phone?.trim() ?? "";
+  if (getPhoneValidationError(trimmed) !== null) return null;
 
-export function getCountryNameFromPhone(phone: string): string {
-  try {
-    const parsed = parsePhoneNumber(phone);
-    const country = parsed?.country as CountryCode | undefined;
-    if (!country) return "Unknown";
-    return new Intl.DisplayNames(["en"], { type: "region" }).of(country) ?? country;
-  } catch {
-    return "Unknown";
-  }
-}
-
-/** Stable default for SSR and the first client paint — must not use browser APIs. */
-export const DEFAULT_PHONE_COUNTRY = "bd" as const;
-
-/** Detect country from the visitor locale. Client-only — call after hydration. */
-export function detectClientCountry(): string {
-  if (typeof navigator === "undefined") return DEFAULT_PHONE_COUNTRY;
-
-  try {
-    const locale = new Intl.Locale(navigator.language);
-    if (locale.region) return locale.region.toLowerCase();
-  } catch {
-    const segment = navigator.language.split("-")[1];
-    if (segment) return segment.toLowerCase();
+  const digits = trimmed.replace(NON_DIGIT_PATTERN, "");
+  if (trimmed.startsWith("+")) {
+    return `+${digits}`;
   }
 
-  return DEFAULT_PHONE_COUNTRY;
+  return digits;
 }
 
-/** @deprecated Use DEFAULT_PHONE_COUNTRY for SSR and detectClientCountry() after mount. */
-export function detectDefaultCountry(): string {
-  return detectClientCountry();
+export function getCountryNameFromPhone(_phone: string): string {
+  return "Unknown";
 }

@@ -6,7 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionReveal } from "@/components/ui/SectionReveal";
 import { AboutToolIcon } from "@/components/about/ToolIcons";
 import { ProjectThumbnailMedia } from "@/components/projects/ProjectThumbnail";
-import { projects } from "@/data/projects";
+import { getProjectCaseStudyHref, hasProjectCaseStudy, projects } from "@/data/projects";
 import { ResumeActions } from "@/components/resume-page/ResumeActions";
 import { ResumePdfTemplate } from "@/components/resume-page/ResumePdfTemplate";
 import {
@@ -202,12 +202,18 @@ export function ResumePage() {
                     <p className="resume-featured-card__category">{project.category}</p>
                     <h3>{project.title}</h3>
                     <p>{project.description}</p>
-                    <a
-                      href={`/portfolio#${project.id}`}
-                      className="resume-featured-card__link"
-                    >
-                      View Case Study
-                    </a>
+                    {hasProjectCaseStudy(project) && getProjectCaseStudyHref(project) ? (
+                      <a
+                        href={getProjectCaseStudyHref(project)!}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="resume-featured-card__link"
+                      >
+                        View Case Study
+                      </a>
+                    ) : (
+                      <span className="resume-featured-card__link">Coming Soon</span>
+                    )}
                   </div>
                 </article>
               ))}

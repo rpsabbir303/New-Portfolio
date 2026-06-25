@@ -1,3 +1,5 @@
+"use client";
+
 import type { Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import { shouldShowStoreBadges } from "@/lib/project-store-links";
@@ -5,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { StoreBadges } from "@/components/ui/StoreBadges";
 import { SectionReveal } from "@/components/ui/SectionReveal";
 import { ProjectThumbnail } from "@/components/projects/ProjectThumbnail";
+import { getProjectCaseStudyHref, hasProjectCaseStudy } from "@/data/projects";
 
 type ProjectCardProps = {
   project: Project;
@@ -13,12 +16,22 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const isReversed = project.reversed;
+  const caseStudyHref = getProjectCaseStudyHref(project);
+  const hasCaseStudy = hasProjectCaseStudy(project);
+
+  const handleCardClick = (event: React.MouseEvent<HTMLElement>) => {
+    const target = event.target as HTMLElement;
+    if (target.closest("a, button")) return;
+    if (!caseStudyHref) return;
+    window.open(caseStudyHref, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <SectionReveal delay={index * 0.05}>
       <article
-        className="project-card group overflow-hidden rounded-3xl"
+        className="project-card group cursor-pointer overflow-hidden rounded-3xl transition-transform duration-300 hover:-translate-y-0.5"
         style={{ "--card-glow": project.accentGlow } as React.CSSProperties}
+        onClick={handleCardClick}
       >
         <div
           className={cn(
@@ -43,9 +56,15 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               {project.description}
             </p>
 
-            <Button href={project.caseStudyUrl} external showArrow>
-              Check Full Case Study
-            </Button>
+            {hasCaseStudy && caseStudyHref ? (
+              <Button href={caseStudyHref} external showArrow>
+                Check Full Case Study
+              </Button>
+            ) : (
+              <span className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white/75">
+                Coming Soon
+              </span>
+            )}
 
             {shouldShowStoreBadges(project) ? (
               <StoreBadges
