@@ -35,7 +35,7 @@ export function About() {
 
       <Container>
         <div className="about-grid">
-          <AboutVisual />
+          <AboutVisual parallaxX={decoX} parallaxY={decoY} />
           <AboutContent />
         </div>
       </Container>
