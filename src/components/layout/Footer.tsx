@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/SocialIcons";
 import { useResumePdfDownload } from "@/hooks/useResumePdfDownload";
 import { getSectionHref } from "@/lib/navigation";
-import "@/components/footer/footer.css";
+import "@/components/layout/footer.css";
 
 const FOOTER_SOCIAL = [
   {
@@ -179,7 +179,7 @@ export function Footer() {
           <h3 className="site-footer__signature-name">{resumeHero.name}</h3>
           <p className="site-footer__signature-role">{resumeHero.title}</p>
           <p className="site-footer__signature-tagline">
-            Designing experiences that users love and businesses grow with.
+          Creating Intuitive Websites & Apps That Drive Results.
           </p>
         </section>
 

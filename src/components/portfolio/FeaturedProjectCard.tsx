@@ -2,9 +2,9 @@ import { ArrowUpRight } from "lucide-react";
 import {
   getProjectCaseStudyHref,
   hasProjectCaseStudy,
-  type Project,
 } from "@/data/projects";
-import { ProjectThumbnailMedia } from "@/components/projects/ProjectThumbnail";
+import type { Project } from "@/types/project";
+import { ProjectThumbnailMedia } from "@/components/portfolio/ProjectThumbnail";
 import { SectionReveal } from "@/components/ui/SectionReveal";
 
 type FeaturedProjectCardProps = {

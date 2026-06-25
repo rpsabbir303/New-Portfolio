@@ -2,10 +2,10 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { projects } from "@/data/projects";
-import { FeaturedProjectCard } from "@/components/FeaturedProjectCard";
+import { FeaturedProjectCard } from "@/components/portfolio/FeaturedProjectCard";
 import { SectionReveal } from "@/components/ui/SectionReveal";
 
-export function Projects() {
+export function FeaturedProjects() {
   return (
     <section id="portfolio" className="scroll-mt-28 relative py-20 lg:py-28">
       <Container>

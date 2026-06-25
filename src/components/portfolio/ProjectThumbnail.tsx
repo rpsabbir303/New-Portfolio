@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import { LayoutGrid, Smartphone } from "lucide-react";
-import { getProjectCaseStudyHref, type Project } from "@/data/projects";
+import { getProjectCaseStudyHref } from "@/data/projects";
+import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
-import "@/components/projects/project-thumbnail.css";
+import "@/components/portfolio/project-thumbnail.css";
 
 export type ProjectThumbnailProject = Pick<
   Project,

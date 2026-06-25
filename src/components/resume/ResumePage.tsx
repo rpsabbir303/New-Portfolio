@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionReveal } from "@/components/ui/SectionReveal";
-import { AboutToolIcon } from "@/components/about/ToolIcons";
-import { ProjectThumbnailMedia } from "@/components/projects/ProjectThumbnail";
+import { AboutToolIcon } from "@/components/sections/about/ToolIcons";
+import { ProjectThumbnailMedia } from "@/components/portfolio/ProjectThumbnail";
 import { getProjectCaseStudyHref, hasProjectCaseStudy, projects } from "@/data/projects";
-import { ResumeActions } from "@/components/resume-page/ResumeActions";
-import { ResumePdfTemplate } from "@/components/resume-page/ResumePdfTemplate";
+import { ResumeActions } from "@/components/resume/ResumeActions";
+import { ResumePdfTemplate } from "@/components/resume/ResumePdfTemplate";
 import {
   resumeAchievements,
   resumeHero,
@@ -19,7 +19,7 @@ import {
   resumeTimeline,
   resumeTools,
 } from "@/data/resume";
-import "@/components/resume-page/resume-page.css";
+import "@/components/resume/resume-page.css";
 
 function AnimatedCounter({
   end,

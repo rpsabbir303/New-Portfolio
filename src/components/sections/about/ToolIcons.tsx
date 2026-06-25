@@ -1,4 +1,7 @@
 import { cn } from "@/lib/utils";
+import type { AboutToolIconId } from "@/types/about";
+
+export type { AboutToolIconId } from "@/types/about";
 
 type ToolIconProps = {
   size?: number;
@@ -15,8 +18,6 @@ const TOOL_IMAGE_MAP = {
     alt: "Adobe Illustrator logo",
   },
 } as const;
-
-export type AboutToolIconId = keyof typeof TOOL_IMAGE_MAP | "figma";
 
 export function FigmaToolIcon({ size = 36, className }: ToolIconProps) {
   return (

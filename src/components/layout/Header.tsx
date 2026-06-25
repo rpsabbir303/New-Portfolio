@@ -8,8 +8,8 @@ import { site } from "@/data/site";
 import { Button } from "@/components/ui/Button";
 import { SocialLinks } from "@/components/ui/SocialLinks";
 import { Container } from "@/components/ui/Container";
-import { NavLink } from "@/components/navigation/NavLink";
-import { ActiveNavProvider } from "@/components/navigation/ActiveNavProvider";
+import { NavLink } from "@/components/layout/navigation/NavLink";
+import { ActiveNavProvider } from "@/components/layout/navigation/ActiveNavProvider";
 import { HEADER_NAV_ITEMS, navigateToSection } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 

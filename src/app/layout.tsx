@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import { PersonJsonLd } from "@/components/PersonJsonLd";
-import { HashScrollHandler } from "@/components/navigation/HashScrollHandler";
+import { PersonJsonLd } from "@/components/layout/PersonJsonLd";
+import { HashScrollHandler } from "@/components/layout/navigation/HashScrollHandler";
 import { site } from "@/data/site";
 import "./globals.css";
 

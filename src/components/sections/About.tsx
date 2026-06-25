@@ -3,10 +3,10 @@
 import { useEffect, useRef } from "react";
 import { useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Container } from "@/components/ui/Container";
-import { AboutBackground } from "@/components/about/AboutBackground";
-import { AboutVisual } from "@/components/about/AboutVisual";
-import { AboutContent } from "@/components/about/AboutContent";
-import "@/components/about/about.css";
+import { AboutBackground } from "@/components/sections/about/AboutBackground";
+import { AboutVisual } from "@/components/sections/about/AboutVisual";
+import { AboutContent } from "@/components/sections/about/AboutContent";
+import "@/components/sections/about/about.css";
 
 export function About() {
   const sectionRef = useRef<HTMLElement>(null);

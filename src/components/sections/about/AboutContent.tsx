@@ -7,7 +7,7 @@ import {
   aboutTimeline,
   aboutTools,
 } from "@/data/about";
-import { AboutToolIcon } from "@/components/about/ToolIcons";
+import { AboutToolIcon } from "@/components/sections/about/ToolIcons";
 import { SectionReveal } from "@/components/ui/SectionReveal";
 
 export function AboutContent() {

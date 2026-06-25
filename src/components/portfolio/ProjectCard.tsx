@@ -1,12 +1,12 @@
 "use client";
 
-import type { Project } from "@/data/projects";
+import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
 import { shouldShowStoreBadges } from "@/lib/project-store-links";
 import { Button } from "@/components/ui/Button";
 import { StoreBadges } from "@/components/ui/StoreBadges";
 import { SectionReveal } from "@/components/ui/SectionReveal";
-import { ProjectThumbnail } from "@/components/projects/ProjectThumbnail";
+import { ProjectThumbnail } from "@/components/portfolio/ProjectThumbnail";
 import { getProjectCaseStudyHref, hasProjectCaseStudy } from "@/data/projects";
 
 type ProjectCardProps = {

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { HeroParticles } from "@/components/hero/HeroParticles";
+import { HeroParticles } from "@/components/sections/hero/HeroParticles";
 
 export function HeroBackground() {
   return (

@@ -4,8 +4,8 @@ import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect } from "react";
 import { site } from "@/data/site";
-import { HeroGShape } from "@/components/hero/HeroGShape";
-import { HeroDecorations } from "@/components/hero/HeroDecorations";
+import { HeroGShape } from "@/components/sections/hero/HeroGShape";
+import { HeroDecorations } from "@/components/sections/hero/HeroDecorations";
 
 type HeroVisualProps = {
   sectionRef: React.RefObject<HTMLElement | null>;

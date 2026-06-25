@@ -1,4 +1,4 @@
-import type { AboutToolIconId } from "@/components/about/ToolIcons";
+import type { AboutToolIconId } from "@/types/about";
 import { site } from "@/data/site";
 
 export const resumeHero = {

@@ -6,9 +6,9 @@ import { Container } from "@/components/ui/Container";
 import { site } from "@/data/site";
 import { Button } from "@/components/ui/Button";
 import { SocialLinks } from "@/components/ui/SocialLinks";
-import { HeroBackground } from "@/components/hero/HeroBackground";
-import { HeroVisual } from "@/components/hero/HeroVisual";
-import "@/components/hero/hero.css";
+import { HeroBackground } from "@/components/sections/hero/HeroBackground";
+import { HeroVisual } from "@/components/sections/hero/HeroVisual";
+import "@/components/sections/hero/hero.css";
 
 const fadeUp = {
   initial: { opacity: 0, y: 40 },

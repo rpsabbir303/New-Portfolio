@@ -12,7 +12,7 @@ import {
 } from "@/data/resume";
 import { projects } from "@/data/projects";
 import { site } from "@/data/site";
-import "@/components/resume-page/resume-pdf.css";
+import "@/components/resume/resume-pdf.css";
 
 export const RESUME_PDF_TEMPLATE_ID = "resume-pdf-template";
 

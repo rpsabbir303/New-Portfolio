@@ -1,19 +1,12 @@
-import type { ComponentType } from "react";
 import { site } from "@/data/site";
 import {
   BehanceIcon,
   DribbbleIcon,
   LinkedInIcon,
 } from "@/components/ui/SocialIcons";
+import type { SocialLinkItem } from "@/types/social";
 
-type IconComponent = ComponentType<{ size?: number; className?: string }>;
-
-export type SocialLinkItem = {
-  href: string;
-  label: string;
-  title: string;
-  Icon: IconComponent;
-};
+export type { SocialLinkItem } from "@/types/social";
 
 export const socialLinks: SocialLinkItem[] = [
   {

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { socialLinks } from "@/data/social-links";
+import { socialLinks } from "@/data/social";
 
 type SocialLinksProps = {
   variant?: "header" | "hero" | "footer" | "contact";

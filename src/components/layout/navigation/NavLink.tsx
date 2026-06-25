@@ -8,7 +8,7 @@ import {
   navigateToSection,
   type NavSectionId,
 } from "@/lib/navigation";
-import { useActiveNavContext } from "@/components/navigation/ActiveNavProvider";
+import { useActiveNavContext } from "@/components/layout/navigation/ActiveNavProvider";
 
 type NavLinkProps = {
   sectionId?: NavSectionId;

@@ -1,9 +1,9 @@
 import { Container } from "@/components/ui/Container";
 import { projects } from "@/data/projects";
-import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectCard } from "@/components/portfolio/ProjectCard";
 import { SectionReveal } from "@/components/ui/SectionReveal";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 
 export default function PortfolioPage() {
   return (
