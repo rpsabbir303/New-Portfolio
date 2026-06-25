@@ -188,10 +188,10 @@ export const projects: Project[] = [
     reversed: true,
   },
   {
-    id: "cabwire",
-    slug: "cabwire",
+    id: "cabwire-ride-sharing-app",
+    slug: "cabwire-ride-sharing-app",
     dribbbleUrl: "",
-    title: "Cabwire",
+    title: "Cabwire Ride Sharing App",
     summary: "Mobile Application",
     description:
       "A modern ride booking application focused on fast transportation, real-time tracking, and a clean user experience for passengers and drivers.",

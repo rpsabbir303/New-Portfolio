@@ -17,9 +17,7 @@ export async function GET() {
     );
   }
 
-  console.info("[contact][test] GET /api/contact/test — hardcoded SMTP test");
   const envStatus = getEmailEnvStatus();
-  console.info("[contact][test] Email env status:", envStatus);
 
   const result = await sendHardcodedTestEmail();
 

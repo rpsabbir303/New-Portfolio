@@ -53,6 +53,7 @@ export function formatPhoneE164(phone: string): string | null {
   return digits;
 }
 
-export function getCountryNameFromPhone(_phone: string): string {
+export function getCountryNameFromPhone(phone: string): string {
+  void phone;
   return "Unknown";
 }

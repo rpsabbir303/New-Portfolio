@@ -9,7 +9,6 @@ import {
   HONEYPOT_FIELD,
   LEGACY_HONEYPOT_FIELDS,
 } from "@/lib/contact/honeypot";
-import { formatPhoneE164, getPhoneValidationError } from "@/lib/contact/phone";
 import {
   CONTACT_FORM_FIELD_KEYS,
   CONTACT_VALIDATION,
@@ -150,9 +149,6 @@ export function validateContactRequestBody(
   body: unknown,
   options: { rateLimitPassed: boolean; rateLimitReason?: string }
 ): ContactRequestValidationResult {
-  console.log("REQUEST BODY", body);
-  console.log("[contact][api] Expected form schema keys:", CONTACT_FORM_FIELD_KEYS);
-  console.log("[contact][api] Expected Zod schema:", contactFormSchema.shape);
 
   const checks: AntiSpamCheckResults = {
     honeypot: { passed: true, value: "" },
@@ -169,7 +165,6 @@ export function validateContactRequestBody(
     botDetection: { passed: true },
   };
 
-  console.log("[contact][api] Checking rate limit:", checks.rateLimit);
   if (!options.rateLimitPassed) {
     return reject(
       "RATE_LIMIT",
@@ -186,12 +181,7 @@ export function validateContactRequestBody(
     formStartedAt
   );
 
-  console.log("[contact][api] Extracted form fields:", formFields);
-  console.log("[contact][api] Payload vs schema:", payloadSummary);
-
-  if (extraKeys.length > 0) {
-    console.warn("[contact][api] Unexpected extra keys (ignored):", extraKeys);
-  }
+  void extraKeys;
 
   const honeypotVerdict = evaluateHoneypot(honeypotValue, formStartedAt, {
     name: typeof formFields.name === "string" ? formFields.name : undefined,
@@ -210,7 +200,6 @@ export function validateContactRequestBody(
     reason: honeypotVerdict.reason,
   };
 
-  console.log("[contact][api] Checking honeypot:", checks.honeypot);
   if (!honeypotVerdict.passed) {
     const reason =
       honeypotVerdict.reason ??
@@ -222,8 +211,6 @@ export function validateContactRequestBody(
     });
   }
 
-  console.log("[contact][api] Checking captcha:", checks.captcha);
-
   const email =
     typeof formFields.email === "string" ? formFields.email.trim() : "";
   if (email) {
@@ -234,23 +221,12 @@ export function validateContactRequestBody(
         ? `Disposable email domain blocked: ${email.split("@")[1]}`
         : undefined,
     };
-    console.log("[contact][api] Checking email domain:", checks.domainValidation);
     if (disposable) {
       return reject("VALIDATION_ERROR", checks.domainValidation.reason!, checks, {
         payloadSummary,
       });
     }
   }
-
-  const phone =
-    typeof formFields.phone === "string" ? formFields.phone : "";
-  const phoneError = phone ? getPhoneValidationError(phone) : "Phone is required";
-  const phoneE164 = phone ? formatPhoneE164(phone) : null;
-  console.log("[contact][api] Checking phone format:", {
-    phone,
-    phoneError: phoneError ?? null,
-    phoneE164,
-  });
 
   const parsed = contactFormSchema.safeParse(formFields);
   if (!parsed.success) {
@@ -261,9 +237,6 @@ export function validateContactRequestBody(
       "Form data did not match the expected schema";
 
     checks.contentValidation = { passed: false, reason };
-    console.log("[contact][api] Checking content validation:", checks.contentValidation);
-    console.log("[contact][api] Zod validation issues:", issues);
-
     return reject("VALIDATION_ERROR", reason, checks, {
       schemaIssues: issues,
       payloadSummary,
@@ -271,8 +244,6 @@ export function validateContactRequestBody(
   }
 
   checks.contentValidation = { passed: true };
-  console.log("[contact][api] All validation checks passed:", checks);
-
   return {
     ok: true,
     data: parsed.data,

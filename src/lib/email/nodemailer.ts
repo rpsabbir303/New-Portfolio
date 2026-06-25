@@ -33,7 +33,7 @@ export function validateEmailConfigOnStartup(): void {
   }
 
   emailConfigValidated = true;
-  console.info("[contact][smtp] Email configuration loaded for:", maskEmail(user));
+  void maskEmail(user);
 }
 
 export function getEmailEnvStatus(): EmailEnvStatus {
@@ -73,11 +73,7 @@ export function createMailTransporter(): Transporter<SMTPTransport.SentMessageIn
   const pass = process.env.EMAIL_PASS!.trim().replace(/\s/g, "");
 
   const envStatus = getEmailEnvStatus();
-  if (!envStatus.passLooksLikeAppPassword) {
-    console.warn(
-      "[contact][smtp] EMAIL_PASS does not look like a Google App Password (expected 16 characters). Regular Gmail passwords are rejected by Google SMTP."
-    );
-  }
+  void envStatus.passLooksLikeAppPassword;
 
   return nodemailer.createTransport({
     host: "smtp.gmail.com",

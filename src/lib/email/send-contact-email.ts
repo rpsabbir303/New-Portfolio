@@ -1,4 +1,3 @@
-import { site } from "@/data/site";
 import {
   buildAutoReplyEmailHtml,
   buildAutoReplySubject,
@@ -25,15 +24,7 @@ export type SendContactEmailResult =
   | ({ success: false } & SmtpFailure & { envIssue?: string });
 
 function logEnvStatus(): void {
-  const status = getEmailEnvStatus();
-  console.info("[contact][smtp] Environment check:", {
-    hasEmailUser: status.hasUser,
-    hasEmailPass: status.hasPass,
-    emailUser: status.userPreview,
-    passLooksLikeAppPassword: status.passLooksLikeAppPassword,
-    recipient: CONTACT_RECIPIENT,
-    nodeEnv: process.env.NODE_ENV ?? "development",
-  });
+  void getEmailEnvStatus();
 }
 
 export async function verifySmtpConnection(): Promise<
@@ -52,9 +43,7 @@ export async function verifySmtpConnection(): Promise<
 
   try {
     const transporter = createMailTransporter();
-    console.info("[contact][smtp] Verifying Gmail SMTP (smtp.gmail.com:587, secure: false)...");
-    const verified = await transporter.verify();
-    console.info("[contact][smtp] transporter.verify() succeeded:", verified);
+    await transporter.verify();
     return { ok: true };
   } catch (error) {
     const failure = classifySmtpError(error);
@@ -92,13 +81,6 @@ export async function sendContactEmail(
   const recipient = CONTACT_RECIPIENT;
   const from = getMailFromAddress();
 
-  console.info("[contact][smtp] Sending contact email:", {
-    from,
-    to: recipient,
-    replyTo: data.email,
-    subject: buildContactEmailSubject(data.subject),
-  });
-
   try {
     const adminMail = await transporter.sendMail({
       from,
@@ -106,13 +88,6 @@ export async function sendContactEmail(
       replyTo: data.email,
       subject: buildContactEmailSubject(data.subject),
       html: buildContactEmailHtml(data),
-    });
-
-    console.info("[contact][smtp] sendMail success:", {
-      messageId: adminMail.messageId,
-      accepted: adminMail.accepted,
-      rejected: adminMail.rejected,
-      response: adminMail.response,
     });
 
     const autoReplyData: AutoReplyEmailData = {
@@ -123,7 +98,6 @@ export async function sendContactEmail(
     };
 
     try {
-      console.info("[contact][smtp] Sending auto-reply to:", data.email);
       const autoReplyMail = await transporter.sendMail({
         from,
         to: data.email,
@@ -131,7 +105,7 @@ export async function sendContactEmail(
         subject: buildAutoReplySubject(),
         html: buildAutoReplyEmailHtml(autoReplyData),
       });
-      console.info("[contact][smtp] Auto-reply sent:", autoReplyMail.messageId);
+      void autoReplyMail.messageId;
     } catch (autoReplyError) {
       const failure = classifySmtpError(autoReplyError);
       console.error("[contact][smtp] Auto-reply failed (admin email already sent):", failure);
@@ -152,7 +126,6 @@ export { formatSmtpFailureForClient };
 
 /** Diagnostic helper — sends a minimal test email to the portfolio inbox. */
 export async function sendHardcodedTestEmail(): Promise<SendContactEmailResult> {
-  console.info("[contact][smtp] Running SMTP test email...");
   return sendContactEmail({
     name: "SMTP Test",
     email: "test@example.com",

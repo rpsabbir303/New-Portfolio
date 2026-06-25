@@ -279,7 +279,6 @@ export function ContactForm() {
           render={({ field, fieldState }) => (
             <ContactPhoneField
               key={phoneResetKey}
-              resetKey={phoneResetKey}
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}

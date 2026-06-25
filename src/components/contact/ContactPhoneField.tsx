@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { cn } from "@/lib/utils";
 import { getPhoneValidationError } from "@/lib/contact/phone";
 import { isFieldSchemaValid } from "@/lib/validation/contact-field-status";
@@ -14,7 +14,6 @@ type ContactPhoneFieldProps = {
   onBlur: () => void;
   error?: FieldError;
   isSubmitted?: boolean;
-  resetKey?: number;
 };
 
 export function ContactPhoneField({
@@ -23,15 +22,9 @@ export function ContactPhoneField({
   onBlur,
   error,
   isSubmitted = false,
-  resetKey = 0,
 }: ContactPhoneFieldProps) {
   const [hasTyped, setHasTyped] = useState(false);
   const [hasBlurred, setHasBlurred] = useState(false);
-
-  useEffect(() => {
-    setHasTyped(false);
-    setHasBlurred(false);
-  }, [resetKey]);
 
   const shouldValidate = hasTyped || hasBlurred || isSubmitted;
   const isEmpty = value.trim().length === 0;

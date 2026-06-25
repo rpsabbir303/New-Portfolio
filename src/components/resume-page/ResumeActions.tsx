@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Download, Loader2 } from "lucide-react";
 import { ContactToast } from "@/components/contact/ContactToast";
 import { useResumePdfDownload } from "@/hooks/useResumePdfDownload";
@@ -60,9 +61,9 @@ export function ResumeActions({
         ) : null}
 
         {mode === "hero" || mode === "cta" ? (
-          <a href="/#contact" className="resume-btn resume-btn--ghost">
+          <Link href="/#contact" className="resume-btn resume-btn--ghost">
             <span>Hire Me</span>
-          </a>
+          </Link>
         ) : null}
       </div>
 

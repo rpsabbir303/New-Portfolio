@@ -4,7 +4,6 @@ export const HEADER_SCROLL_OFFSET = 112;
 export const SECTION_IDS = {
   home: "home",
   about: "about",
-  services: "services",
   portfolio: "portfolio",
   contact: "contact",
 } as const;
@@ -34,7 +33,6 @@ export const FOOTER_NAV_ITEMS: ReadonlyArray<{ id: NavSectionId; label: string }
   [
     { id: "home", label: "Home" },
     { id: "about", label: "About Me" },
-    { id: "services", label: "Services" },
     { id: "portfolio", label: "Portfolio" },
     { id: "contact", label: "Contact" },
   ];
@@ -50,10 +48,6 @@ export function isNavSectionId(value: string): value is NavSectionId {
 export function getSectionHref(sectionId: NavSectionId, pathname: string): string {
   if (sectionId === "portfolio" && pathname !== "/") {
     return "/portfolio";
-  }
-
-  if (sectionId === "services") {
-    return "/services";
   }
 
   const hash = `#${SECTION_IDS[sectionId]}`;

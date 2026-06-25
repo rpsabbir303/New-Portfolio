@@ -33,18 +33,10 @@ function rejectionResponse(
 }
 
 export async function POST(request: Request) {
-  console.info("[contact][api] POST /api/contact received");
-
   try {
     const ip = getClientIp(request);
-    console.log("[contact][api] Client IP:", ip);
 
     const rateLimit = checkContactRateLimit(ip);
-    console.log("[contact][api] Rate limit check:", {
-      allowed: rateLimit.allowed,
-      remaining: rateLimit.remaining,
-      retryAfterSeconds: rateLimit.retryAfterSeconds,
-    });
 
     if (!rateLimit.allowed) {
       const reason = `Too many submissions from this IP. Retry after ${rateLimit.retryAfterSeconds ?? 3600} seconds.`;
@@ -99,12 +91,6 @@ export async function POST(request: Request) {
       timeStyle: "long",
       timeZone: "Asia/Dhaka",
     }).format(now);
-
-    console.log("[contact][api] Sending email with sanitized payload:", {
-      ...sanitized,
-      phone: phoneE164,
-      country,
-    });
 
     const emailResult = await sendContactEmail({
       ...sanitized,

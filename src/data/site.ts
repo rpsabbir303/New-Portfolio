@@ -58,37 +58,6 @@ export const devSkills = [
   { name: "JavaScript", level: 60 },
 ];
 
-export const services = [
-  {
-    id: "ui-ux",
-    title: "UI/UX Design",
-    description:
-      "Interfaces that feel intuitive from the first tap — crafted with precision typography, thoughtful spacing, and interaction patterns users love.",
-    icon: "palette",
-  },
-  {
-    id: "product",
-    title: "Product Design",
-    description:
-      "End-to-end product thinking from concept to launch — aligning user needs, business goals, and scalable design systems.",
-    icon: "palette",
-  },
-  {
-    id: "ux-research",
-    title: "UX Research",
-    description:
-      "Deep user insights through interviews, testing, and behavioral analysis — turning data into design decisions that actually matter.",
-    icon: "search",
-  },
-  {
-    id: "brand",
-    title: "Brand Identity",
-    description:
-      "Cohesive visual identities that tell your story — logos, color systems, and brand guidelines built to scale across every touchpoint.",
-    icon: "sparkles",
-  },
-];
-
 export const tools = [
   {
     name: "Framer",
@@ -116,17 +85,3 @@ export const tools = [
   },
 ];
 
-export const features = [
-  {
-    title: "Business Solutions",
-    description:
-      "Strategic design thinking that aligns user needs with business goals for measurable impact.",
-    icon: "briefcase",
-  },
-  {
-    title: "Brand Strategy",
-    description:
-      "Visual identity systems that build trust, recognition, and lasting emotional connections.",
-    icon: "target",
-  },
-];

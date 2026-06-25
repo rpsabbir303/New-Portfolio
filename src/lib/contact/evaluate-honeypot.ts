@@ -1,6 +1,5 @@
 import {
   FORM_STARTED_AT_FIELD,
-  HONEYPOT_FIELD,
   MIN_FORM_DURATION_MS,
 } from "@/lib/contact/honeypot";
 
@@ -95,7 +94,6 @@ export function evaluateHoneypot(
   submittedAt: number = Date.now()
 ): HoneypotVerdict {
   const value = honeypotValue == null ? "" : String(honeypotValue);
-  console.log("HONEYPOT VALUE:", value);
 
   const startedAt =
     typeof formStartedAt === "number"
@@ -126,10 +124,6 @@ export function evaluateHoneypot(
   }
 
   if (isLikelyAutofill(trimmed, context)) {
-    console.log(
-      `[contact][honeypot] Ignoring likely autofill in "${HONEYPOT_FIELD}":`,
-      trimmed
-    );
     return {
       passed: true,
       classification: "autofill_ignored",
@@ -148,10 +142,6 @@ export function evaluateHoneypot(
     };
   }
 
-  console.log(
-    `[contact][honeypot] Non-empty value allowed (not bot-classified):`,
-    trimmed
-  );
   return {
     passed: true,
     classification: "autofill_ignored",

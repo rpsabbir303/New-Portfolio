@@ -9,14 +9,16 @@ import {
 
 export function useActiveNav() {
   const pathname = usePathname();
-  const [activeSection, setActiveSection] = useState<NavSectionId>("home");
+  const [activeSection, setActiveSection] = useState<NavSectionId>(() => {
+    if (typeof window === "undefined") return "home";
+    const hash = window.location.hash.replace("#", "");
+    if (hash && NAV_ITEMS.some((item) => item.id === hash)) {
+      return hash as NavSectionId;
+    }
+    return "home";
+  });
 
   useEffect(() => {
-    if (pathname === "/portfolio") {
-      setActiveSection("portfolio");
-      return;
-    }
-
     if (pathname !== "/") return;
 
     const sectionElements = NAV_ITEMS.map(({ id }) =>
@@ -44,15 +46,6 @@ export function useActiveNav() {
 
     sectionElements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [pathname]);
-
-  useEffect(() => {
-    if (pathname !== "/") return;
-
-    const hash = window.location.hash.replace("#", "");
-    if (hash && NAV_ITEMS.some((item) => item.id === hash)) {
-      setActiveSection(hash as NavSectionId);
-    }
   }, [pathname]);
 
   const isActive = (sectionId: NavSectionId): boolean => {

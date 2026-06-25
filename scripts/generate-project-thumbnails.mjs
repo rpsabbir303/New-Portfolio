@@ -16,8 +16,8 @@ const placeholders = [
   { folder: "yoga-with-jen", color: "#7C3AED", skip: true },
   { folder: "doctor-appointment", color: "#22C55E", skip: true },
   { folder: "autoworld", color: "#7C3AED", skip: true },
-  { folder: "cabwire", color: "#C9A227", skip: true },
-  { folder: "mapc", color: "#84CC16", skip: true },
+  { folder: "cabwire Ride Sharing App", color: "#C9A227", skip: true },
+  { folder: "mapc EV Charging", color: "#84CC16", skip: true },
 ];
 
 for (const { folder, color, skip } of placeholders) {
