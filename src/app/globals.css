@@ -261,20 +261,15 @@ body {
 }
 
 .featured-project-card__visual {
+  position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.35);
+  background: linear-gradient(
+    180deg,
+    rgba(20, 20, 20, 1) 0%,
+    rgba(12, 12, 12, 1) 100%
+  );
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.featured-project-card__visual > * {
-  height: 100%;
-  transform: scale(1.02);
-  transition: transform 0.5s ease;
-}
-
-.featured-project-card:hover .featured-project-card__visual > * {
-  transform: scale(1.05);
 }
 
 .featured-project-card__body {

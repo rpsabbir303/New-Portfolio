@@ -117,57 +117,6 @@ export const resumeTools: ReadonlyArray<{ id: AboutToolIconId; name: string }> =
   { id: "framer", name: "Framer" },
 ];
 
-export const resumeFeaturedProjects = [
-  {
-    name: "Food Delivery App",
-    category: "Mobile App",
-    description:
-      "Instant ordering flow with real-time status and streamlined checkout.",
-    mockupType: "phones",
-    accent: "#ff006e",
-  },
-  {
-    name: "Sports Booking Platform",
-    category: "Booking Platform",
-    description:
-      "Court booking, event flows, and tournament engagement experiences.",
-    mockupType: "phone-blue",
-    accent: "#2563eb",
-  },
-  {
-    name: "HRM SaaS Dashboard",
-    category: "SaaS",
-    description:
-      "Employee self-service, attendance, and management experiences.",
-    mockupType: "laptop-red",
-    accent: "#dc2626",
-  },
-  {
-    name: "Service Booking Platform",
-    category: "Web App",
-    description:
-      "Flexible booking UX with high-conversion customer journeys.",
-    mockupType: "laptop-light",
-    accent: "#0ea5e9",
-  },
-  {
-    name: "E-commerce Experience",
-    category: "E-commerce",
-    description:
-      "Product discovery, personalization, and checkout built for conversion.",
-    mockupType: "website-collage",
-    accent: "#f59e0b",
-  },
-  {
-    name: "Parking Booking System",
-    category: "Utility App",
-    description:
-      "Location-first booking flow with clear availability and pricing.",
-    mockupType: "phone-pedestal",
-    accent: "#7c3aed",
-  },
-] as const;
-
 export const resumeAchievements = [
   { value: 50, suffix: "+", label: "Projects Completed" },
   { value: 50, suffix: "+", label: "Happy Clients" },

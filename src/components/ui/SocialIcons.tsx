@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 type IconProps = {
@@ -68,7 +67,7 @@ export function DribbbleIcon({ size = 16, className }: IconProps) {
 
 export function BehanceIcon({ size = 16, className }: IconProps) {
   return (
-    <Image
+    <img
       src="/icons/behance.png"
       alt=""
       width={size}

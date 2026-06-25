@@ -3,7 +3,11 @@ export type ProjectCategory =
   | "Web App"
   | "SaaS"
   | "Dashboard"
-  | "UX/UI";
+  | "UX/UI"
+  | "Healthcare Platform"
+  | "Automotive Platform"
+  | "Ride Sharing"
+  | "Electric Vehicle";
 
 export type Project = {
   id: string;
@@ -13,7 +17,9 @@ export type Project = {
   category: ProjectCategory;
   featured?: boolean;
   caseStudyUrl: string;
-  livesOn?: ("app-store" | "google-play")[];
+  thumbnail: string;
+  appStoreUrl?: string;
+  playStoreUrl?: string;
   accent: string;
   accentGlow: string;
   mockupType:
@@ -28,15 +34,18 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "food-delivery",
-    title: "Food Delivery & Pickup Application",
-    summary: "Real-time food ordering with smart recommendations.",
+    id: "duty-hour-app",
+    title: "Duty Hour App",
+    summary: "Total HRM Solution for all type of business",
     description:
-      "A seamless food ordering experience with real-time tracking, smart recommendations, and intuitive checkout — designed to reduce friction from browse to doorstep.",
+      "A complete HRM solution that simplifies attendance, shift management, leave requests, payroll, employee monitoring, and workforce operations with real-time insights and an intuitive user experience.",
     category: "Mobile App",
     featured: true,
     caseStudyUrl: "#",
-    livesOn: ["app-store", "google-play"],
+    thumbnail: "/projects/duty-hour/thumbnail.webp",
+    appStoreUrl: "https://apps.apple.com/ca/app/duty-hour-app/id6753148379",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.duty.users&hl=en",
     accent: "#FF006E",
     accentGlow: "rgba(255, 0, 110, 0.35)",
     mockupType: "phones",
@@ -50,62 +59,71 @@ export const projects: Project[] = [
     category: "Mobile App",
     featured: true,
     caseStudyUrl: "#",
-    livesOn: ["app-store", "google-play"],
+    thumbnail: "/projects/yoga-with-jen/thumbnail.webp",
+    appStoreUrl: "https://apps.apple.com/us/app/yoga-with-jen/id6747931843",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.yoga.users",
     accent: "#7C3AED",
     accentGlow: "rgba(124, 58, 237, 0.35)",
     mockupType: "phone-pedestal",
     reversed: true,
   },
   {
-    id: "anew-fitness",
-    title: "Anew Fitness CRM Dashboard",
-    summary: "Fitness management for trainers and gym owners.",
+    id: "doctor-platform",
+    title: "Doctor Appointment Platform",
+    summary: "Website + Dashboard",
     description:
-      "A comprehensive fitness management dashboard for trainers and gym owners — streamlining client management, scheduling, and analytics in one powerful interface.",
-    category: "Dashboard",
+      "A modern healthcare platform that enables patients to search doctors, schedule appointments, manage bookings, and communicate with healthcare providers through a clean and intuitive interface.",
+    category: "Healthcare Platform",
     featured: true,
     caseStudyUrl: "#",
-    accent: "#DC2626",
-    accentGlow: "rgba(220, 38, 38, 0.35)",
-    mockupType: "laptop-red",
+    thumbnail: "/projects/doctor-appointment/thumbnail.webp",
+    accent: "#22C55E",
+    accentGlow: "rgba(34, 197, 94, 0.35)",
+    mockupType: "laptop-light",
   },
   {
     id: "autoworld",
-    title: "AutoWorld Car Selling Platform",
-    summary: "Modern automotive marketplace with advanced search.",
+    title: "AutoWorld",
+    summary: "Website & Mobile App",
     description:
-      "A modern automotive marketplace with advanced search filters, detailed vehicle listings, and a streamlined buying experience for car enthusiasts.",
-    category: "Web App",
+      "A complete vehicle marketplace that allows users to explore, compare, finance, and purchase new or used vehicles with an intuitive browsing experience.",
+    category: "Automotive Platform",
+    featured: true,
     caseStudyUrl: "#",
-    accent: "#0EA5E9",
-    accentGlow: "rgba(14, 165, 233, 0.35)",
+    thumbnail: "/projects/autoworld/thumbnail.webp",
+    accent: "#7C3AED",
+    accentGlow: "rgba(124, 58, 237, 0.35)",
     mockupType: "laptop-light",
     reversed: true,
   },
   {
-    id: "padel-now",
-    title: "Padel Now Application",
-    summary: "Court booking and player matching for padel sports.",
+    id: "cabwire",
+    title: "Cabwire",
+    summary: "Mobile Application",
     description:
-      "A sports booking platform for padel enthusiasts — find courts, book sessions, and connect with players through an engaging, game-ready interface.",
-    category: "Mobile App",
+      "A modern ride booking application focused on fast transportation, real-time tracking, and a clean user experience for passengers and drivers.",
+    category: "Ride Sharing",
+    featured: true,
     caseStudyUrl: "#",
-    livesOn: ["app-store", "google-play"],
-    accent: "#2563EB",
-    accentGlow: "rgba(37, 99, 235, 0.35)",
-    mockupType: "phone-blue",
+    thumbnail: "/projects/cabwire/thumbnail.webp",
+    accent: "#C9A227",
+    accentGlow: "rgba(201, 162, 39, 0.35)",
+    mockupType: "phones",
   },
   {
-    id: "woof-spot",
-    title: "Woof Spot Website",
-    summary: "Pet services with warm visuals and clear CTAs.",
+    id: "mapc-ev-charging",
+    title: "MAPC EV Charging",
+    summary: "Mobile Application",
     description:
-      "A delightful pet services website featuring grooming, boarding, and adoption — warm visuals and clear CTAs that put furry friends first.",
-    category: "Web App",
+      "An EV charging application that helps users locate charging stations, monitor charger availability, navigate to nearby stations, and manage charging sessions.",
+    category: "Electric Vehicle",
+    featured: true,
     caseStudyUrl: "#",
-    accent: "#F59E0B",
-    accentGlow: "rgba(245, 158, 11, 0.35)",
-    mockupType: "website-collage",
+    thumbnail: "/projects/mapc/thumbnail.webp",
+    accent: "#84CC16",
+    accentGlow: "rgba(132, 204, 22, 0.35)",
+    mockupType: "phone-blue",
     reversed: true,
   },
 ];

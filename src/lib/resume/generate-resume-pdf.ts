@@ -3,7 +3,6 @@ import {
   resumeAchievements,
   resumeCertification,
   resumeEducation,
-  resumeFeaturedProjects,
   resumeHero,
   resumeProfileInfo,
   resumeSkills,
@@ -12,6 +11,7 @@ import {
   resumeTimeline,
   resumeTools,
 } from "@/data/resume";
+import { projects } from "@/data/projects";
 import { site } from "@/data/site";
 import {
   PDF_COLORS,
@@ -107,12 +107,12 @@ export async function generateResumePdf(): Promise<jsPDF> {
   );
 
   nextSection("Featured Projects");
-  resumeFeaturedProjects.forEach((project, index) => {
+  projects.forEach((project, index) => {
     layout.renderProjectBlock(
-      project.name,
+      project.title,
       project.category,
       project.description,
-      index < resumeFeaturedProjects.length - 1
+      index < projects.length - 1
     );
   });
 

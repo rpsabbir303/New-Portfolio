@@ -89,8 +89,12 @@ export function getCountryNameFromPhone(phone: string): string {
   }
 }
 
-export function detectDefaultCountry(): string {
-  if (typeof navigator === "undefined") return "us";
+/** Stable default for SSR and the first client paint — must not use browser APIs. */
+export const DEFAULT_PHONE_COUNTRY = "bd" as const;
+
+/** Detect country from the visitor locale. Client-only — call after hydration. */
+export function detectClientCountry(): string {
+  if (typeof navigator === "undefined") return DEFAULT_PHONE_COUNTRY;
 
   try {
     const locale = new Intl.Locale(navigator.language);
@@ -100,5 +104,10 @@ export function detectDefaultCountry(): string {
     if (segment) return segment.toLowerCase();
   }
 
-  return "us";
+  return DEFAULT_PHONE_COUNTRY;
+}
+
+/** @deprecated Use DEFAULT_PHONE_COUNTRY for SSR and detectClientCountry() after mount. */
+export function detectDefaultCountry(): string {
+  return detectClientCountry();
 }

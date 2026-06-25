@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { featuredProjects } from "@/data/projects";
+import { projects } from "@/data/projects";
 import { FeaturedProjectCard } from "@/components/FeaturedProjectCard";
 import { SectionReveal } from "@/components/ui/SectionReveal";
 
@@ -32,7 +32,7 @@ export function Projects() {
         </SectionReveal>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-          {featuredProjects.map((project, index) => (
+          {projects.map((project, index) => (
             <FeaturedProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>

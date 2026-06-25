@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/data/projects";
-import { MockupVisual } from "@/components/MockupVisual";
+import { ProjectThumbnailMedia } from "@/components/projects/ProjectThumbnail";
 import { SectionReveal } from "@/components/ui/SectionReveal";
 
 type FeaturedProjectCardProps = {
@@ -19,7 +19,13 @@ export function FeaturedProjectCard({ project, index }: FeaturedProjectCardProps
       >
         <article>
           <div className="featured-project-card__visual">
-            <MockupVisual type={project.mockupType} accent={project.accent} />
+            <ProjectThumbnailMedia
+              project={project}
+              priority={index === 0}
+              sizes="(max-width:768px) 100vw, 33vw"
+              showOverlay={false}
+              className="project-thumbnail--featured"
+            />
           </div>
 
           <div className="featured-project-card__body">
@@ -32,9 +38,9 @@ export function FeaturedProjectCard({ project, index }: FeaturedProjectCardProps
 
             <h3 className="featured-project-card__title font-display">{project.title}</h3>
 
-            {project.summary && (
+            {project.summary ? (
               <p className="featured-project-card__summary">{project.summary}</p>
-            )}
+            ) : null}
           </div>
         </article>
       </Link>

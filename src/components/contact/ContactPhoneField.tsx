@@ -20,7 +20,8 @@ import {
 import { ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
-  detectDefaultCountry,
+  DEFAULT_PHONE_COUNTRY,
+  detectClientCountry,
   getPhoneDisplayError,
   isPhoneEffectivelyEmpty,
 } from "@/lib/contact/phone";
@@ -70,7 +71,6 @@ export function ContactPhoneField({
   isSubmitted = false,
   resetKey = 0,
 }: ContactPhoneFieldProps) {
-  const defaultCountry = useMemo(() => detectDefaultCountry(), [resetKey]);
   const listboxId = useId();
   const searchId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -93,7 +93,7 @@ export function ContactPhoneField({
     handlePhoneValueChange,
     inputRef,
   } = usePhoneInput({
-    defaultCountry: defaultCountry as CountryIso2,
+    defaultCountry: DEFAULT_PHONE_COUNTRY,
     value,
     countries: defaultCountries,
     preferredCountries: PREFERRED_COUNTRIES,
@@ -102,6 +102,15 @@ export function ContactPhoneField({
       onChange(data.phone);
     },
   });
+
+  useEffect(() => {
+    if (!isPhoneEffectivelyEmpty(value)) return;
+
+    const detected = detectClientCountry() as CountryIso2;
+    if (detected !== country.iso2) {
+      setCountry(detected);
+    }
+  }, [resetKey, value, country.iso2, setCountry]);
 
   const preferredList = useMemo(
     () =>

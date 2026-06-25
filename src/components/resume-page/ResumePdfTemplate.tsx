@@ -2,7 +2,6 @@ import {
   resumeAchievements,
   resumeCertification,
   resumeEducation,
-  resumeFeaturedProjects,
   resumeHero,
   resumeProfileInfo,
   resumeSkills,
@@ -11,6 +10,7 @@ import {
   resumeTimeline,
   resumeTools,
 } from "@/data/resume";
+import { projects } from "@/data/projects";
 import { site } from "@/data/site";
 import "@/components/resume-page/resume-pdf.css";
 
@@ -93,10 +93,10 @@ export function ResumePdfTemplate() {
         <section className="resume-pdf-template__section">
           <h2 className="resume-pdf-template__heading">Featured Projects</h2>
           <div className="resume-pdf-template__projects">
-            {resumeFeaturedProjects.map((project) => (
-              <div key={project.name} className="resume-pdf-template__project">
+            {projects.map((project) => (
+              <div key={project.id} className="resume-pdf-template__project">
                 <p className="resume-pdf-template__project-name">
-                  {project.name}
+                  {project.title}
                 </p>
                 <p className="resume-pdf-template__project-category">
                   Category: {project.category}

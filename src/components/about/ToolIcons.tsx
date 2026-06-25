@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 type ToolIconProps = {
@@ -65,7 +64,7 @@ function ToolLogoImage({
   className?: string;
 }) {
   return (
-    <Image
+    <img
       src={src}
       alt={alt}
       width={size}

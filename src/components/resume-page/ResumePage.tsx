@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionReveal } from "@/components/ui/SectionReveal";
-import { MockupVisual } from "@/components/MockupVisual";
 import { AboutToolIcon } from "@/components/about/ToolIcons";
+import { ProjectThumbnailMedia } from "@/components/projects/ProjectThumbnail";
+import { projects } from "@/data/projects";
 import { ResumeActions } from "@/components/resume-page/ResumeActions";
 import { ResumePdfTemplate } from "@/components/resume-page/ResumePdfTemplate";
 import {
   resumeAchievements,
-  resumeFeaturedProjects,
   resumeHero,
   resumeProfileInfo,
   resumeSkills,
@@ -189,16 +189,23 @@ export function ResumePage() {
           <SectionReveal>
             <span className="section-label">Featured Projects</span>
             <div className="resume-featured-grid">
-              {resumeFeaturedProjects.map((project) => (
-                <article key={project.name} className="resume-featured-card">
+              {projects.map((project) => (
+                <article key={project.id} className="resume-featured-card">
                   <div className="resume-featured-card__media">
-                    <MockupVisual type={project.mockupType} accent={project.accent} />
+                    <ProjectThumbnailMedia
+                      project={project}
+                      sizes="(max-width:768px) 100vw, 50vw"
+                      showOverlay={false}
+                    />
                   </div>
                   <div className="resume-featured-card__body">
                     <p className="resume-featured-card__category">{project.category}</p>
-                    <h3>{project.name}</h3>
+                    <h3>{project.title}</h3>
                     <p>{project.description}</p>
-                    <a href="/portfolio" className="resume-featured-card__link">
+                    <a
+                      href={`/portfolio#${project.id}`}
+                      className="resume-featured-card__link"
+                    >
                       View Case Study
                     </a>
                   </div>
