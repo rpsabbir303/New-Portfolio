@@ -1,7 +1,6 @@
 export const aboutStats = [
-  { value: "2+", label: "Years Experience" },
-  { value: "50+", label: "Projects Completed" },
-  { value: "100%", label: "Client Satisfaction" },
+  { value: "3+", yearsLabel: "Years", label: "UI/UX Design" },
+  { value: "2+", yearsLabel: "Years", label: "Graphic Design" },
 ] as const;
 
 export const aboutSkills = [
@@ -29,15 +28,24 @@ export const aboutTimeline: ReadonlyArray<{
   text: string;
   detail?: string;
 }> = [
-  { year: "2022", text: "Started UI/UX Journey" },
-  { year: "2023", text: "Worked on Multiple Client Projects" },
-  { year: "2024", text: "50+ Projects Delivered" },
-  { year: "2025", text: "Building Premium Digital Products" },
+  { year: "2022", text: "Started Graphic Design Journey" },
+  {
+    year: "2023",
+    text: "Worked on Branding, Social Media & Marketing Design Projects",
+  },
+  {
+    year: "2024",
+    text: "Transitioned into UI/UX Design and Mobile Product Design",
+  },
+  {
+    year: "2025",
+    text: "Completed 50+ Client Projects across SaaS, HRM, Booking, Healthcare, Automotive & Mobile Apps",
+  },
   {
     year: "2026",
     text: "Senior UI/UX Designer at SparkTech Agency",
     detail:
-      "Currently leading product design initiatives and delivering high-quality digital experiences for global clients.",
+      "Leading UI/UX design for global clients and building scalable digital products.",
   },
 ];
 
@@ -45,5 +53,5 @@ export const aboutContent = {
   label: "About Me",
   headline: "Turning Ideas Into Meaningful Digital Experiences",
   description:
-    "I'm Sabbir Ahmed — a UI/UX designer who lives at the intersection of aesthetics and usability. Every pixel I place is intentional: shaped by user research, refined through iteration, and built to make digital products feel effortless. I don't just design screens — I craft experiences people remember.",
+    "I'm Sabbir Ahmed, a UI/UX Designer with 3+ years of experience crafting intuitive digital products and 2+ years in graphic design. I help startups and businesses transform ideas into user-friendly mobile apps, SaaS platforms, dashboards, and web experiences through research-driven design and scalable design systems.",
 };

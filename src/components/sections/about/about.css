@@ -132,8 +132,8 @@
 
 @media (min-width: 1024px) {
   .about-grid {
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: 4rem 5rem;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: 3.5rem 3.5rem;
   }
 }
 
@@ -487,8 +487,9 @@
   z-index: 12;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  padding: 0.9rem 1.15rem;
+  gap: 0.18rem;
+  min-width: 7.4rem;
+  padding: 0.95rem 1.1rem;
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.045);
   backdrop-filter: blur(22px);
@@ -516,19 +517,28 @@
 
 .about-stat-card__value {
   font-family: var(--font-plus-jakarta), system-ui, sans-serif;
-  font-size: 1.35rem;
+  font-size: 1.45rem;
   font-weight: 800;
   line-height: 1;
   color: #fff;
   letter-spacing: -0.02em;
 }
 
+.about-stat-card__years {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.66);
+}
+
 .about-stat-card__label {
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.55);
-  white-space: nowrap;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.22;
+  max-width: 7.6rem;
 }
 
 .about-stat-card--1 {
@@ -544,6 +554,10 @@
 .about-stat-card--3 {
   bottom: 6%;
   right: -2%;
+}
+
+.about-stat-card--3 {
+  display: none;
 }
 
 @media (max-width: 1023px) {
@@ -579,19 +593,40 @@
 
 .about-content__headline {
   font-family: var(--font-plus-jakarta), system-ui, sans-serif;
-  font-size: clamp(1.75rem, 4vw, 2.65rem);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
+  font-size: clamp(1.9rem, 4.5vw, 3.9rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
   color: #fff;
-  max-width: 28rem;
+  max-width: 42rem;
+  text-wrap: pretty;
+}
+
+@media (min-width: 1024px) {
+  .about-content__headline {
+    max-width: 40ch;
+  }
+
+  .about-content__headline-break {
+    display: block;
+  }
+
+  .about-content__headline > span {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1023px) {
+  .about-content__headline-break {
+    display: none;
+  }
 }
 
 .about-content__description {
   font-size: 1rem;
   line-height: 1.75;
   color: #9ca3af;
-  max-width: 34rem;
+  max-width: 38rem;
 }
 
 /* ── Skill pills ── */

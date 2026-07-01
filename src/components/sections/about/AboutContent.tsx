@@ -15,7 +15,11 @@ export function AboutContent() {
     <div className="about-content">
       <SectionReveal>
         <span className="section-label">{aboutContent.label}</span>
-        <h2 className="about-content__headline">{aboutContent.headline}</h2>
+        <h2 className="about-content__headline">
+          <span>Turning Ideas Into</span>
+          <br className="about-content__headline-break" />
+          <span>Meaningful Digital Experiences</span>
+        </h2>
       </SectionReveal>
 
       <SectionReveal delay={0.08}>

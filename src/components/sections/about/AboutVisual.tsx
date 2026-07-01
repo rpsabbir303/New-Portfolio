@@ -189,6 +189,7 @@ export function AboutVisual({ parallaxX, parallaxY }: AboutVisualProps) {
               }}
             >
               <span className="about-stat-card__value">{stat.value}</span>
+              <span className="about-stat-card__years">{stat.yearsLabel}</span>
               <span className="about-stat-card__label">{stat.label}</span>
             </motion.div>
           </motion.div>
