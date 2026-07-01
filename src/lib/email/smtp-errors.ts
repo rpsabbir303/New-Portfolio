@@ -30,7 +30,7 @@ export function classifySmtpError(error: unknown): SmtpFailure {
     combined.includes("invalid login")
   ) {
     return {
-      message: "SMTP authentication failed — check EMAIL_USER and EMAIL_PASS (Google App Password required)",
+      message: "SMTP authentication failed — check SMTP_EMAIL and SMTP_PASSWORD (Google App Password required)",
       code: "SMTP_AUTH_FAILED",
       details,
     };

@@ -4,6 +4,7 @@ import { sendHardcodedTestEmail } from "@/lib/email/send-contact-email";
 import { shouldExposeSmtpDetails } from "@/lib/email/smtp-errors";
 
 export const runtime = "nodejs";
+export const maxDuration = 30;
 
 /**
  * Development/diagnostic route — GET /api/contact/test

@@ -14,8 +14,16 @@ export type EmailEnvStatus = {
 
 let emailConfigValidated = false;
 
+function readSmtpEmail(): string | undefined {
+  return process.env.SMTP_EMAIL?.trim();
+}
+
+function readSmtpPassword(): string | undefined {
+  return process.env.SMTP_PASSWORD?.trim();
+}
+
 export function assertEmailConfig(): void {
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+  if (!readSmtpEmail() || !readSmtpPassword()) {
     throw new Error("Email configuration missing");
   }
   emailConfigValidated = true;
@@ -25,11 +33,14 @@ export function assertEmailConfig(): void {
 export function validateEmailConfigOnStartup(): void {
   if (emailConfigValidated) return;
 
-  const user = process.env.EMAIL_USER?.trim();
-  const pass = process.env.EMAIL_PASS?.trim();
+  const user = readSmtpEmail();
+  const pass = readSmtpPassword();
 
   if (!user || !pass) {
-    throw new Error("Email configuration missing");
+    console.warn(
+      "[contact][smtp] SMTP_EMAIL and SMTP_PASSWORD are not set. Contact form email delivery will fail until they are configured."
+    );
+    return;
   }
 
   emailConfigValidated = true;
@@ -37,8 +48,8 @@ export function validateEmailConfigOnStartup(): void {
 }
 
 export function getEmailEnvStatus(): EmailEnvStatus {
-  const user = process.env.EMAIL_USER?.trim();
-  const pass = process.env.EMAIL_PASS?.trim();
+  const user = readSmtpEmail();
+  const pass = readSmtpPassword();
   const normalizedPass = pass?.replace(/\s/g, "") ?? "";
 
   return {
@@ -52,13 +63,13 @@ export function getEmailEnvStatus(): EmailEnvStatus {
 export function getMissingEmailEnvMessage(): string | null {
   const { hasUser, hasPass } = getEmailEnvStatus();
   if (!hasUser && !hasPass) {
-    return "EMAIL_USER and EMAIL_PASS are missing. Add them to .env.local (use a Google App Password for EMAIL_PASS).";
+    return "SMTP_EMAIL and SMTP_PASSWORD are missing. Add them to your environment (use a Google App Password for SMTP_PASSWORD).";
   }
   if (!hasUser) {
-    return "EMAIL_USER is missing. Set it to your Gmail address in .env.local.";
+    return "SMTP_EMAIL is missing. Set it to your Gmail address.";
   }
   if (!hasPass) {
-    return "EMAIL_PASS is missing. Set it to a Google App Password in .env.local.";
+    return "SMTP_PASSWORD is missing. Set it to a Google App Password.";
   }
   return null;
 }
@@ -69,11 +80,8 @@ export function createMailTransporter(): Transporter<SMTPTransport.SentMessageIn
     throw new Error(missing);
   }
 
-  const user = process.env.EMAIL_USER!.trim();
-  const pass = process.env.EMAIL_PASS!.trim().replace(/\s/g, "");
-
-  const envStatus = getEmailEnvStatus();
-  void envStatus.passLooksLikeAppPassword;
+  const user = readSmtpEmail()!;
+  const pass = readSmtpPassword()!.replace(/\s/g, "");
 
   return nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -91,7 +99,7 @@ export function createMailTransporter(): Transporter<SMTPTransport.SentMessageIn
 }
 
 export function getMailFromAddress(): string {
-  const user = process.env.EMAIL_USER?.trim();
+  const user = readSmtpEmail();
   if (!user) return `Sabbir Ahmed <${CONTACT_RECIPIENT}>`;
   return `Sabbir Ahmed <${user}>`;
 }

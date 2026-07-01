@@ -8,6 +8,9 @@ import { sendContactEmail, formatSmtpFailureForClient } from "@/lib/email/send-c
 
 export const runtime = "nodejs";
 
+/** Gmail SMTP can be slow on cold starts; allow up to 30s on supported Vercel plans. */
+export const maxDuration = 30;
+
 function rejectionResponse(
   result: Extract<
     ReturnType<typeof validateContactRequestBody>,
@@ -61,7 +64,19 @@ export async function POST(request: Request) {
       );
     }
 
-    const body = await request.json();
+    const body = await request.json().catch(() => null);
+
+    if (body === null) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Rejected because: Invalid JSON body.",
+          reason: "Invalid JSON body.",
+          code: "INVALID_JSON",
+        },
+        { status: 400 }
+      );
+    }
 
     const validation = validateContactRequestBody(body, {
       rateLimitPassed: true,
@@ -108,7 +123,7 @@ export async function POST(request: Request) {
       console.error("[contact][smtp] Details:", emailResult.details);
       if (emailResult.code === "EMAIL_ENV_MISSING") {
         console.error(
-          "[contact][smtp] Create .env.local with EMAIL_USER and EMAIL_PASS (Google App Password)."
+          "[contact][smtp] Set SMTP_EMAIL and SMTP_PASSWORD in your environment (Google App Password)."
         );
       }
       return NextResponse.json(
