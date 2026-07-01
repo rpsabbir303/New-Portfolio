@@ -16,25 +16,72 @@ const plusJakarta = Plus_Jakarta_Sans({
   weight: ["500", "600", "700", "800"],
 });
 
+const siteUrl = "https://sabbirahmed-seven.vercel.app";
+
 const siteTitle = "Sabbir Ahmed — UI/UX Designer & Creative Developer";
 const siteDescription =
   "Portfolio of Sabbir Ahmed, a UI/UX designer and creative developer crafting user-centered digital solutions for mobile apps, web platforms, and brands.";
 
+const siteKeywords = [
+  "Sabbir Ahmed",
+  "UI/UX designer",
+  "UX designer",
+  "product designer",
+  "creative developer",
+  "portfolio",
+  "user-centered design",
+  "mobile app design",
+  "web design",
+  "Dhaka Bangladesh",
+  "Figma",
+  "interface design",
+];
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: siteTitle,
   description: siteDescription,
+  keywords: siteKeywords,
   authors: [{ name: site.name, url: `mailto:${site.email}` }],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     title: siteTitle,
     description: siteDescription,
+    url: "/",
+    siteName: site.name,
     type: "website",
     locale: "en_US",
     emails: [site.email],
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Sabbir Ahmed Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: [{ url: "/hero-profile.png", type: "image/png" }],
+    apple: [{ url: "/hero-profile.png", type: "image/png" }],
   },
   other: {
     "contact:email": site.email,
