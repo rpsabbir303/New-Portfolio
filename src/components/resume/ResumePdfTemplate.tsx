@@ -16,6 +16,17 @@ import "@/components/resume/resume-pdf.css";
 
 export const RESUME_PDF_TEMPLATE_ID = "resume-pdf-template";
 
+const profileLine = resumeProfileInfo
+  .filter((item) => item.label === "Company" || item.label === "Availability")
+  .map((item) => item.value)
+  .join(" · ");
+
+const portfolioLinks = resumeSocialLinks.filter(
+  (link) => !["Email", "Phone", "Location"].includes(link.label)
+);
+
+const featuredProjects = projects.filter((project) => project.featured);
+
 export function ResumePdfTemplate() {
   return (
     <div
@@ -28,8 +39,15 @@ export function ResumePdfTemplate() {
           <h1 className="resume-pdf-template__name">{resumeHero.name}</h1>
           <p className="resume-pdf-template__title">{resumeHero.title}</p>
           <p className="resume-pdf-template__position">{resumeHero.position}</p>
+          {profileLine ? (
+            <p className="resume-pdf-template__profile-line">{profileLine}</p>
+          ) : null}
           <p className="resume-pdf-template__contact">
-            {site.email} | {site.phone} | {site.address}
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+            {" | "}
+            <a href={`tel:${site.phoneE164}`}>{site.phone}</a>
+            {" | "}
+            {site.address}
           </p>
         </header>
 
@@ -43,31 +61,17 @@ export function ResumePdfTemplate() {
         </section>
 
         <section className="resume-pdf-template__section">
-          <h2 className="resume-pdf-template__heading">Contact Information</h2>
-          {resumeProfileInfo.map((item) => (
-            <div key={item.label} className="resume-pdf-template__field">
-              <span className="resume-pdf-template__label">{item.label}:</span>
-              <p className="resume-pdf-template__value">
-                {"href" in item && item.href ? (
-                  <a href={item.href}>{item.value}</a>
-                ) : (
-                  item.value
-                )}
-              </p>
-            </div>
-          ))}
-        </section>
-
-        <section className="resume-pdf-template__section">
           <h2 className="resume-pdf-template__heading">Experience</h2>
           {resumeTimeline.map((item) => (
             <div key={item.year} className="resume-pdf-template__timeline-item">
-              <span className="resume-pdf-template__timeline-year">
-                {item.year}
-              </span>
-              <span className="resume-pdf-template__timeline-title">
-                {item.title}
-              </span>
+              <div className="resume-pdf-template__timeline-header">
+                <span className="resume-pdf-template__timeline-title">
+                  {item.title}
+                </span>
+                <span className="resume-pdf-template__timeline-year">
+                  {item.year}
+                </span>
+              </div>
               <p className="resume-pdf-template__timeline-desc">
                 {item.description}
               </p>
@@ -99,7 +103,7 @@ export function ResumePdfTemplate() {
         <section className="resume-pdf-template__section">
           <h2 className="resume-pdf-template__heading">Featured Projects</h2>
           <div className="resume-pdf-template__projects">
-            {projects.map((project) => (
+            {featuredProjects.map((project) => (
               <div key={project.id} className="resume-pdf-template__project">
                 <p className="resume-pdf-template__project-name">
                   {project.title}
@@ -108,7 +112,7 @@ export function ResumePdfTemplate() {
                   Category: {project.category}
                 </p>
                 <p className="resume-pdf-template__project-desc">
-                  {project.description}
+                  {project.summary || project.description}
                 </p>
               </div>
             ))}
@@ -152,8 +156,8 @@ export function ResumePdfTemplate() {
         </section>
 
         <section className="resume-pdf-template__section">
-          <h2 className="resume-pdf-template__heading">Contact & Links</h2>
-          {resumeSocialLinks.map((link) => (
+          <h2 className="resume-pdf-template__heading">Portfolio & Social Links</h2>
+          {portfolioLinks.map((link) => (
             <div key={link.label} className="resume-pdf-template__field">
               <span className="resume-pdf-template__label">{link.label}:</span>
               <p className="resume-pdf-template__value">

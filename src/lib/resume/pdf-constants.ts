@@ -1,54 +1,53 @@
 export const PDF_FILENAME = "Sabbir_Ahmed_Resume.pdf";
 
-/** Brand accent — #FF005C */
+/** Corporate resume palette — single accent #2F5496 on white. */
 export const PDF_COLORS = {
-  accent: [255, 0, 92] as const,
-  black: [17, 17, 17] as const,
-  darkGray: [64, 64, 64] as const,
-  gray: [115, 115, 115] as const,
-  /** #E5E7EB — subtle section accent */
+  accent: [47, 84, 150] as const,
+  primary: [17, 24, 39] as const,
+  secondary: [75, 85, 99] as const,
+  muted: [107, 114, 128] as const,
   divider: [229, 231, 235] as const,
-  lightGray: [160, 160, 160] as const,
   white: [255, 255, 255] as const,
 };
 
 export const PDF_LAYOUT = {
-  margin: 14,
+  margin: 20,
   pageWidth: 210,
   pageHeight: 297,
-  /** Last safe baseline before bottom margin. */
-  maxContentY: 283,
-  footerY: 288,
+  footerY: 284,
+  maxContentY: 272,
 } as const;
 
 export const PDF_CONTENT_WIDTH =
   PDF_LAYOUT.pageWidth - PDF_LAYOUT.margin * 2;
 
-/**
- * Typography — section headings ~18–20px (15pt), body ~11pt.
- */
+/** Typography in pt (px × 0.75 at 96dpi). */
 export const PDF_TYPOGRAPHY = {
-  name: 31,
-  section: 15,
-  body: 10.5,
-  small: 9.5,
+  name: 22,
+  role: 13,
+  subtitle: 10,
+  sectionHeading: 12,
+  body: 10,
+  bodySmall: 9,
+  label: 10,
+  projectTitle: 13,
+  projectCategory: 10,
+  projectDescription: 9,
+  footer: 8,
   lineHeight: 1.5 as number,
-  lineHeightTight: 1.32 as number,
 } as const;
 
-/** ~250px max at print scale → ~66mm */
-export const PDF_SECTION_DIVIDER_MAX_MM = 66;
-
+/** Spacing in mm (~px / 3.78 at 96dpi). */
 export const PDF_SPACING = {
-  xs: 1,
-  sm: 1.8,
-  md: 3,
-  lg: 4.5,
-  sectionBefore: 6.5,
-  headingAfter: 2,
-  headingBelow: 4,
-  role: 3,
-  project: 2,
+  gap8: 2.1,
+  gap12: 3.2,
+  gap16: 4.2,
+  gap24: 6.4,
+  sectionPadding: 8.5,
+  headingRule: 4,
+  paragraph: 3.2,
+  listItem: 2.6,
+  divider: 4,
 };
 
 export function pdfLineHeightMm(
