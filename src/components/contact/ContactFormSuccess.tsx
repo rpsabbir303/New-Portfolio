@@ -17,9 +17,15 @@ export function ContactFormSuccess({ onSendAnother }: ContactFormSuccessProps) {
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       className="contact-form__success"
     >
-      <div className="contact-form__success-icon" aria-hidden>
+      <motion.div
+        className="contact-form__success-icon"
+        aria-hidden
+        initial={{ scale: 0.6, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+      >
         <Check size={28} strokeWidth={2.5} />
-      </div>
+      </motion.div>
 
       <div className="contact-form__success-content">
         <p className="contact-form__success-title">✓ Message Sent Successfully</p>

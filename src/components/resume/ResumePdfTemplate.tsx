@@ -47,7 +47,13 @@ export function ResumePdfTemplate() {
           {resumeProfileInfo.map((item) => (
             <div key={item.label} className="resume-pdf-template__field">
               <span className="resume-pdf-template__label">{item.label}:</span>
-              <p className="resume-pdf-template__value">{item.value}</p>
+              <p className="resume-pdf-template__value">
+                {"href" in item && item.href ? (
+                  <a href={item.href}>{item.value}</a>
+                ) : (
+                  item.value
+                )}
+              </p>
             </div>
           ))}
         </section>
@@ -151,13 +157,11 @@ export function ResumePdfTemplate() {
             <div key={link.label} className="resume-pdf-template__field">
               <span className="resume-pdf-template__label">{link.label}:</span>
               <p className="resume-pdf-template__value">
-                {link.value}
                 {"href" in link && link.href ? (
-                  <>
-                    <br />
-                    {link.href}
-                  </>
-                ) : null}
+                  <a href={link.href}>{link.value}</a>
+                ) : (
+                  link.value
+                )}
               </p>
             </div>
           ))}

@@ -1,157 +1,128 @@
 import { jsPDF } from "jspdf";
 import {
-  resumeAchievements,
-  resumeCertification,
-  resumeEducation,
-  resumeHero,
-  resumeProfileInfo,
-  resumeSkills,
-  resumeSocialLinks,
-  resumeSummary,
-  resumeTimeline,
-  resumeTools,
-} from "@/data/resume";
-import { projects } from "@/data/projects";
-import { site } from "@/data/site";
-import {
   PDF_COLORS,
   PDF_FILENAME,
   PDF_SPACING,
   PDF_TYPOGRAPHY,
 } from "@/lib/resume/pdf-constants";
+import { registerPdfFonts } from "@/lib/resume/pdf-font-loader";
 import { PdfLayoutEngine } from "@/lib/resume/pdf-layout-engine";
+import {
+  PDF_CERTIFICATION,
+  PDF_CONTACTS,
+  PDF_EDUCATION,
+  PDF_EXPERIENCE,
+  PDF_FEATURED_PROJECTS,
+  PDF_HERO,
+  PDF_SKILL_GROUPS,
+  PDF_SUMMARY_LINES,
+  PDF_TOOLS_LINE,
+} from "@/lib/resume/pdf-resume-content";
 
-const { accent, black, gray } = PDF_COLORS;
+function renderResume(layout: PdfLayoutEngine) {
+  layout.fillPageWhite();
 
-export async function generateResumePdf(): Promise<jsPDF> {
-  const doc = new jsPDF({ unit: "mm", format: "a4", compress: true });
-  const layout = new PdfLayoutEngine(doc);
-  let sectionIndex = 0;
+  layout.renderHeader({
+    name: PDF_HERO.name,
+    role: PDF_HERO.title,
+    contacts: PDF_CONTACTS,
+  });
 
-  const nextSection = (title: string) => {
-    layout.renderSectionHeading(title, sectionIndex === 0);
-    sectionIndex += 1;
-  };
-
-  layout.renderText(resumeHero.name, {
-    fontSize: PDF_TYPOGRAPHY.name,
-    fontStyle: "bold",
-    color: black,
-  }, { spaceAfter: PDF_SPACING.gap12 });
-
-  layout.renderText(resumeHero.title, {
-    fontSize: PDF_TYPOGRAPHY.role,
-    color: accent,
-  }, { spaceAfter: PDF_SPACING.gap8 });
-
-  layout.renderText(resumeHero.position, {
-    fontSize: PDF_TYPOGRAPHY.subtitle,
-    color: gray,
-  }, { spaceAfter: PDF_SPACING.gap12 });
-
-  layout.renderText(
-    `${site.email}  |  ${site.phone}  |  ${site.address}`,
-    { fontSize: PDF_TYPOGRAPHY.subtitle, color: gray },
-    { spaceAfter: PDF_SPACING.sectionPadding }
+  layout.beginSection(
+    "Professional Summary",
+    layout.measureSummaryLinesHeight(PDF_SUMMARY_LINES),
+    true
   );
 
-  nextSection("Professional Summary");
-  layout.renderText(resumeSummary.text, { fontSize: PDF_TYPOGRAPHY.body, color: black });
-  layout.renderText(resumeSummary.text2, { fontSize: PDF_TYPOGRAPHY.body, color: black });
-  layout.renderText(`Career Goal: ${resumeSummary.goal}`, {
-    fontSize: PDF_TYPOGRAPHY.body,
-    color: black,
-  }, { spaceAfter: PDF_SPACING.gap16 });
-
-  nextSection("Contact Information");
-  for (const item of resumeProfileInfo) {
-    layout.renderLabeledField(item.label, item.value);
+  for (const [index, line] of PDF_SUMMARY_LINES.entries()) {
+    const isLast = index === PDF_SUMMARY_LINES.length - 1;
+    layout.renderText(
+      line,
+      {
+        fontSize: PDF_TYPOGRAPHY.body,
+        color: PDF_COLORS.darkGray,
+        lineHeight: PDF_TYPOGRAPHY.lineHeight,
+      },
+      { spaceAfter: isLast ? PDF_SPACING.xs : PDF_SPACING.xs }
+    );
   }
 
-  nextSection("Experience");
-  for (const item of resumeTimeline) {
-    layout.renderText(item.year, {
-      fontSize: PDF_TYPOGRAPHY.label,
-      fontStyle: "bold",
-      color: accent,
-    }, { spaceAfter: PDF_SPACING.gap8 });
-    layout.renderText(item.title, {
-      fontSize: PDF_TYPOGRAPHY.label,
-      fontStyle: "bold",
-      color: black,
-    }, { spaceAfter: PDF_SPACING.gap8 });
-    layout.renderText(item.description, {
-      fontSize: PDF_TYPOGRAPHY.bodySmall,
-      color: gray,
-    }, { spaceAfter: PDF_SPACING.gap24 });
-  }
-
-  nextSection("Skills & Expertise");
-  for (const group of resumeSkills) {
-    layout.renderText(group.category, {
-      fontSize: PDF_TYPOGRAPHY.label,
-      fontStyle: "bold",
-      color: black,
-    }, { spaceAfter: PDF_SPACING.gap8 });
-    layout.renderText(group.items.join(" • "), {
-      fontSize: PDF_TYPOGRAPHY.bodySmall,
-      color: gray,
-    }, { spaceAfter: PDF_SPACING.gap16 });
-  }
-
-  nextSection("Tools & Technologies");
-  layout.renderText(
-    resumeTools.map((tool) => tool.name).join(" • "),
-    { fontSize: PDF_TYPOGRAPHY.bodySmall, color: gray },
-    { spaceAfter: PDF_SPACING.gap16 }
+  const firstRole = PDF_EXPERIENCE[0];
+  layout.beginSection(
+    "Experience",
+    layout.measureExperienceRoleHeight(firstRole.bullets, false)
   );
 
-  nextSection("Featured Projects");
-  projects.forEach((project, index) => {
-    layout.renderProjectBlock(
-      project.title,
-      project.category,
-      project.description,
-      index < projects.length - 1
+  PDF_EXPERIENCE.forEach((role, index) => {
+    layout.renderExperienceRole(
+      role.company,
+      role.title,
+      role.period,
+      role.bullets,
+      { isLast: index === PDF_EXPERIENCE.length - 1 }
     );
   });
 
-  nextSection("Achievements");
-  layout.renderText(
-    resumeAchievements
-      .map((item) => `${item.value}${item.suffix} ${item.label}`)
-      .join("  •  "),
-    { fontSize: PDF_TYPOGRAPHY.body, color: black },
-    { spaceAfter: PDF_SPACING.gap16 }
+  const firstProject = PDF_FEATURED_PROJECTS[0];
+  layout.beginSection(
+    "Featured Projects",
+    layout.measureProjectHeight({
+      title: firstProject.title,
+      category: firstProject.category,
+      description: firstProject.description,
+      responsibilities: firstProject.responsibilities,
+      caseStudyHref: firstProject.caseStudyHref,
+    })
   );
 
-  nextSection("Education");
-  layout.renderText(resumeEducation.institute, {
-    fontSize: PDF_TYPOGRAPHY.body,
-    fontStyle: "bold",
-    color: black,
-  }, { spaceAfter: PDF_SPACING.gap12 });
-  for (const credential of resumeEducation.credentials) {
-    layout.renderLabeledField(credential.title, credential.year);
+  for (const project of PDF_FEATURED_PROJECTS) {
+    layout.renderProject({
+      title: project.title,
+      category: project.category,
+      description: project.description,
+      responsibilities: project.responsibilities,
+      caseStudyHref: project.caseStudyHref,
+    });
   }
 
-  nextSection("Certifications");
-  layout.renderLabeledField(
-    resumeCertification.title,
-    `${resumeCertification.institute} — ${resumeCertification.year}`,
-    PDF_SPACING.gap16
+  layout.beginSection(
+    "Skills",
+    layout.measureSkillCategoryHeight(PDF_SKILL_GROUPS[0])
+  );
+  layout.renderSkillCategories(PDF_SKILL_GROUPS, PDF_TOOLS_LINE);
+
+  layout.beginSection(
+    "Education",
+    layout.measureEducationBlockHeight(PDF_EDUCATION.credentials)
+  );
+  layout.renderEducationBlock(
+    PDF_EDUCATION.credentials,
+    PDF_EDUCATION.institute
   );
 
-  nextSection("Portfolio & Social Links");
-  for (const link of resumeSocialLinks) {
-    const display =
-      "href" in link && link.href
-        ? `${link.value}\n${link.href}`
-        : link.value;
-    layout.renderLabeledField(link.label, display);
-  }
+  const certificationItems = [
+    {
+      title: PDF_CERTIFICATION.title,
+      institute: PDF_CERTIFICATION.institute,
+      year: PDF_CERTIFICATION.year,
+    },
+  ];
+
+  layout.beginSection(
+    "Certifications",
+    layout.measureCertificationListHeight(certificationItems)
+  );
+  layout.renderCertificationList(certificationItems);
 
   layout.renderFooters();
+  layout.assertNoOverflow();
+}
+
+export async function generateResumePdf(): Promise<jsPDF> {
+  const doc = new jsPDF({ unit: "mm", format: "a4", compress: true });
+  await registerPdfFonts(doc);
+  const layout = new PdfLayoutEngine(doc);
+  renderResume(layout);
   return doc;
 }
 

@@ -10,15 +10,13 @@ export default function PortfolioPage() {
     <>
       <Header />
       <main>
-        <section className="relative pt-28 pb-20 lg:pt-36 lg:pb-28">
+        <section className="section-y relative pt-28 lg:pt-36">
           <Container>
             <SectionReveal>
               <div className="mb-16 max-w-2xl">
                 <span className="section-label">Portfolio</span>
-                <h1 className="font-display text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                  All Projects
-                </h1>
-                <p className="mt-4 text-lg text-neutral-400">
+                <h1 className="section-heading">All Projects</h1>
+                <p className="section-intro">
                   Full case studies, product details, and design process for every
                   project — from mobile apps to enterprise dashboards.
                 </p>

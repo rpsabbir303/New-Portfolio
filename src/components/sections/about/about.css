@@ -6,12 +6,12 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: 5rem 0 6rem;
+  padding: var(--space-section-y, 5rem) 0;
 }
 
 @media (min-width: 1024px) {
   .about-section {
-    padding: 7rem 0 8rem;
+    padding: var(--space-section-y-lg, 7rem) 0;
   }
 }
 
@@ -137,11 +137,11 @@
   }
 }
 
-/* ── Visual column ── */
+/* ── Visual column — Hero-style portrait overlap ── */
 .about-visual {
   position: relative;
   width: 100%;
-  min-height: clamp(26rem, 78vw, 34rem);
+  min-height: clamp(30rem, 74vw, 40rem);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -149,18 +149,104 @@
 }
 
 .about-visual__stage {
+  container-type: inline-size;
   position: relative;
+  display: grid;
+  grid-template: 1fr / 1fr;
   width: 100%;
-  height: 100%;
-  min-height: inherit;
+  min-height: 360px;
+  max-height: min(62vh, 560px);
+  overflow: hidden;
   isolation: isolate;
 }
 
-.about-visual__ambient {
+.about-visual__stage > .about-visual__layer {
+  grid-area: 1 / 1;
+}
+
+.about-visual__stage::after {
+  content: "";
   position: absolute;
-  inset: -4% -6% 0;
+  bottom: 0;
+  left: -5%;
+  right: -5%;
+  height: 22%;
+  z-index: 9;
   pointer-events: none;
-  z-index: 0;
+  background: linear-gradient(
+    to top,
+    #000 0%,
+    rgba(0, 0, 0, 0.85) 35%,
+    transparent 100%
+  );
+}
+
+.about-visual__layer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.about-visual__layer--bg {
+  z-index: 1;
+}
+
+.about-visual__layer--mid {
+  z-index: 2;
+}
+
+.about-visual__layer--fg {
+  z-index: 3;
+  display: grid;
+  grid-template: 1fr / 1fr;
+}
+
+.about-visual__layer--fg > * {
+  grid-area: 1 / 1;
+}
+
+.about-visual__name-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-visual__name-back {
+  margin: 0;
+  padding-top: 2%;
+  font-size: clamp(3.5rem, 28cqw, 8.5rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: 0.14em;
+  text-align: center;
+  color: #fff;
+  opacity: 0.06;
+  filter: blur(1.5px);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.about-visual__role-front {
+  align-self: end;
+  justify-self: center;
+  width: 108%;
+  margin: 0 0 16% 0;
+  padding: 0;
+  text-align: center;
+  font-size: clamp(1.25rem, 6.5cqw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.22em;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.68);
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+  paint-order: stroke fill;
+  transform: translateY(-28px);
 }
 
 .about-visual__mesh {
@@ -312,73 +398,66 @@
   z-index: 5;
 }
 
+/* Portrait — same overlap treatment as .hero-visual__figure */
 .about-visual__figure {
-  position: relative;
-  z-index: 8;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  width: 100%;
+  height: 100%;
+  max-height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
   pointer-events: none;
 }
 
-.about-visual__figure-inner {
-  position: relative;
+.about-visual__photo-wrap {
   display: flex;
   align-items: flex-end;
   justify-content: center;
   width: 100%;
+  height: 100%;
+  max-height: 100%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
 }
 
-.about-visual__rim {
-  position: absolute;
-  left: 50%;
-  bottom: 8%;
-  width: 72%;
-  height: 75%;
-  transform: translateX(-50%);
-  border-radius: 50% 50% 45% 45%;
-  background: radial-gradient(
-    ellipse 55% 50% at 50% 35%,
-    rgba(255, 0, 92, 0.14) 0%,
-    rgba(255, 0, 92, 0.04) 45%,
-    transparent 68%
-  );
-  filter: blur(20px);
-  z-index: 0;
-  pointer-events: none;
-}
-
-.about-visual__image {
-  position: relative;
-  z-index: 1;
+.about-visual__photo {
   display: block;
   width: auto;
   height: auto;
-  max-width: min(100%, 26rem);
-  max-height: clamp(22rem, 76vw, 34rem);
+  max-height: 100%;
+  max-width: min(100%, 440px);
   object-fit: contain;
   object-position: center bottom;
-  transform: translateY(6%);
-  filter:
-    drop-shadow(0 28px 48px rgba(0, 0, 0, 0.55))
-    drop-shadow(0 0 32px rgba(255, 0, 92, 0.1))
-    drop-shadow(-2px 0 12px rgba(255, 0, 92, 0.06))
-    drop-shadow(2px 0 12px rgba(255, 0, 92, 0.06));
+  mix-blend-mode: lighten;
+}
+
+@media (min-width: 640px) {
+  .about-visual__stage {
+    max-height: min(68vh, 600px);
+    min-height: 420px;
+  }
+
+  .about-visual__photo {
+    max-width: min(100%, 500px);
+  }
 }
 
 @media (min-width: 1024px) {
   .about-visual {
-    min-height: clamp(34rem, 52vh, 44rem);
+    min-height: clamp(36rem, 58vh, 48rem);
     align-self: center;
   }
 
-  .about-visual__image {
-    max-width: 100%;
-    max-height: clamp(30rem, 78vh, 42rem);
-    transform: translateY(8%);
+  .about-visual__stage {
+    max-height: min(76vh, 700px);
+    min-height: 480px;
+  }
+
+  .about-visual__photo {
+    max-width: min(100%, 540px);
   }
 
   .about-visual__ring {
@@ -389,6 +468,16 @@
   .about-visual__ring--inner {
     top: 22%;
     width: clamp(9rem, 48%, 14rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  .about-visual__stage {
+    max-height: min(78vh, 720px);
+  }
+
+  .about-visual__photo {
+    max-width: min(100%, 580px);
   }
 }
 

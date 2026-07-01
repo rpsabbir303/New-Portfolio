@@ -49,15 +49,20 @@ export function AboutVisual({ parallaxX, parallaxY }: AboutVisualProps) {
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
+        {/* Background — ABOUT watermark (same role as SABBIR in Hero) */}
+        <div className="about-visual__layer about-visual__layer--bg">
+          <div className="about-visual__name-wrap" aria-hidden>
+            <p className="about-visual__name-back font-display">ABOUT</p>
+          </div>
+        </div>
+
+        {/* Middle — glow, particles, decorations */}
         <motion.div
-          className="about-visual__ambient"
+          className="about-visual__layer about-visual__layer--mid"
           style={{ x: ambientX, y: ambientY }}
           aria-hidden
         >
           <div className="about-visual__mesh" />
-          <div className="about-visual__grid" />
-          <div className="about-visual__noise" />
-
           <motion.div
             className="about-visual__glow about-visual__glow--primary"
             animate={{ opacity: [0.5, 0.82, 0.5], scale: [0.94, 1.06, 0.94] }}
@@ -68,7 +73,6 @@ export function AboutVisual({ parallaxX, parallaxY }: AboutVisualProps) {
             animate={{ opacity: [0.35, 0.6, 0.35], scale: [1.02, 0.96, 1.02] }}
             transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
           />
-
           <motion.div
             className="about-visual__ring"
             animate={{ scale: [1, 1.025, 1], opacity: [0.45, 0.65, 0.45] }}
@@ -79,7 +83,6 @@ export function AboutVisual({ parallaxX, parallaxY }: AboutVisualProps) {
             animate={{ scale: [1.02, 0.98, 1.02], opacity: [0.25, 0.4, 0.25] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
           />
-
           <div className="about-visual__particles">
             {PARTICLES.map((p) => (
               <motion.span
@@ -104,7 +107,6 @@ export function AboutVisual({ parallaxX, parallaxY }: AboutVisualProps) {
               />
             ))}
           </div>
-
           {ACCENT_DOTS.map((dot, i) => (
             <motion.span
               key={dot.id}
@@ -128,30 +130,33 @@ export function AboutVisual({ parallaxX, parallaxY }: AboutVisualProps) {
           ))}
         </motion.div>
 
-        <div className="about-visual__shadow" aria-hidden />
-        <div className="about-visual__shadow about-visual__shadow--soft" aria-hidden />
+        {/* Foreground — outline type + portrait (Hero overlap pattern) */}
+        <div className="about-visual__layer about-visual__layer--fg">
+          <p className="about-visual__role-front font-display" aria-hidden>
+            UI/UX DESIGNER
+          </p>
 
-        <motion.figure
-          className="about-visual__figure"
-          style={{ x: portraitX, y: portraitY }}
-        >
-          <motion.div
-            className="about-visual__figure-inner"
-            animate={{ y: [0, -7, 0] }}
-            transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut" }}
+          <motion.figure
+            className="about-visual__figure"
+            style={{ x: portraitX, y: portraitY }}
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="about-visual__rim" aria-hidden />
-            <Image
-              src="/hero-profile.png"
-              alt="Sabbir Ahmed — UI/UX Designer"
-              width={640}
-              height={800}
-              sizes="(max-width: 1024px) 90vw, 42vw"
-              className="about-visual__image"
-              priority={false}
-            />
-          </motion.div>
-        </motion.figure>
+            <div className="about-visual__photo-wrap">
+              <Image
+                src="/hero-profile.png"
+                alt="Sabbir Ahmed — UI/UX Designer"
+                width={620}
+                height={760}
+                sizes="(max-width: 1024px) 95vw, 52vw"
+                className="about-visual__photo"
+                priority={false}
+              />
+            </div>
+          </motion.figure>
+        </div>
       </motion.div>
 
       {aboutStats.map((stat, index) => {

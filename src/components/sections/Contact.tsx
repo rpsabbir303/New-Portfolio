@@ -7,7 +7,7 @@ import { ContactForm } from "@/components/contact/ContactForm";
 
 export function Contact() {
   return (
-    <section id="contact" className="scroll-mt-28 pb-20 lg:pb-28">
+    <section id="contact" className="section-y scroll-mt-28">
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <SectionReveal>
@@ -17,7 +17,7 @@ export function Contact() {
                 <h2 className="section-heading">
                   Let&apos;s Build Something Exceptional
                 </h2>
-                <p className="mt-4 max-w-md text-neutral-400">
+                <p className="section-intro">
                   Have a project in mind? Share your details and I&apos;ll get
                   back to you with thoughtful next steps.
                 </p>

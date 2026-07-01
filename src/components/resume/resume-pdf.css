@@ -38,7 +38,7 @@
   font-size: 13pt;
   font-weight: 400;
   line-height: 1.4;
-  color: #ff014f;
+  color: #ff005c;
 }
 
 .resume-pdf-template__position {
@@ -65,13 +65,13 @@
 .resume-pdf-template__heading {
   margin: 0 0 12px;
   padding-bottom: 6px;
-  border-bottom: 1px solid #ff014f;
+  border-bottom: 1px solid #ff005c;
   font-size: 12pt;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1.3;
-  color: #ff014f;
+  color: #ff005c;
 }
 
 .resume-pdf-template__paragraph {
@@ -116,7 +116,7 @@
   font-size: 10pt;
   font-weight: 700;
   line-height: 1.5;
-  color: #ff014f;
+  color: #ff005c;
 }
 
 .resume-pdf-template__timeline-title {
