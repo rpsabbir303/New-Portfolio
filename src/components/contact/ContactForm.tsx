@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Controller, useForm, type FieldErrors } from "react-hook-form";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Controller, useForm, useWatch, type FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -53,11 +53,12 @@ export function ContactForm() {
   const [toast, setToast] = useState<ToastState | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [phoneResetKey, setPhoneResetKey] = useState(0);
-  const honeypotRef = useRef<HTMLInputElement>(null);
-  const formStartedAtRef = useRef(Date.now());
+  const [formStartedAt, setFormStartedAt] = useState(0);
+  const [honeypotValue, setHoneypotValue] = useState("");
+  const [interactionStarted, setInteractionStarted] = useState(false);
 
   useEffect(() => {
-    const el = honeypotRef.current;
+    const el = document.getElementById(HONEYPOT_FIELD) as HTMLInputElement | null;
     if (!el) return;
 
     const clearAutofill = () => {
@@ -70,13 +71,18 @@ export function ContactForm() {
     return () => timers.forEach(clearTimeout);
   }, []);
 
+  const markInteractionStarted = useCallback((eventTimeStamp: number) => {
+    if (interactionStarted) return;
+    setInteractionStarted(true);
+    setFormStartedAt(Math.round(eventTimeStamp) || 1);
+  }, [interactionStarted]);
+
   const {
     register,
     control,
     handleSubmit,
     reset,
     clearErrors,
-    watch,
     setFocus,
     formState: { errors, isSubmitting, isSubmitted, touchedFields },
   } = useForm<ContactFormValues>({
@@ -86,12 +92,19 @@ export function ContactForm() {
     defaultValues,
   });
 
-  const watchedValues = watch();
+  const watchedValues = useWatch({
+    control,
+    defaultValue: defaultValues,
+  });
+  const formValues = useMemo<ContactFormValues>(
+    () => ({ ...defaultValues, ...watchedValues }),
+    [watchedValues]
+  );
   const isLoading = isSubmitting;
 
   const validationSnapshot = useMemo(
-    () => getFieldValidationSnapshot(watchedValues),
-    [watchedValues]
+    () => getFieldValidationSnapshot(formValues),
+    [formValues]
   );
 
   const dismissToast = useCallback(() => setToast(null), []);
@@ -99,10 +112,10 @@ export function ContactForm() {
   const shouldShowFeedback = (name: ContactFieldName) =>
     isSubmitted ||
     Boolean(touchedFields[name]) ||
-    Boolean((watchedValues[name] ?? "").length > 0);
+    Boolean((formValues[name] ?? "").length > 0);
 
   const getFieldState = (name: ContactFieldName) => {
-    const value = watchedValues[name] ?? "";
+    const value = formValues[name] ?? "";
     const fieldValid = validationSnapshot[`${name}Valid`];
     const showFeedback = shouldShowFeedback(name);
     const rhfError = errors[name];
@@ -133,10 +146,11 @@ export function ContactForm() {
       keepIsValid: false,
       keepSubmitCount: false,
     });
-    if (honeypotRef.current) {
-      honeypotRef.current.value = "";
-    }
-    formStartedAtRef.current = Date.now();
+    const honeypotEl = document.getElementById(HONEYPOT_FIELD) as HTMLInputElement | null;
+    if (honeypotEl) honeypotEl.value = "";
+    setInteractionStarted(false);
+    setHoneypotValue("");
+    setFormStartedAt(0);
     setPhoneResetKey((key) => key + 1);
   }, [clearErrors, reset]);
 
@@ -146,11 +160,11 @@ export function ContactForm() {
   }, [resetFormState]);
 
   const onSubmit = async (values: ContactFormValues) => {
-    const honeypotValue = honeypotRef.current?.value ?? "";
+    const startedAt = formStartedAt || 1;
     const payload = {
       ...values,
       [HONEYPOT_FIELD]: honeypotValue,
-      [FORM_STARTED_AT_FIELD]: formStartedAtRef.current,
+      [FORM_STARTED_AT_FIELD]: startedAt,
     };
 
     try {
@@ -237,10 +251,11 @@ export function ContactForm() {
         className="space-y-4"
         noValidate
         autoComplete="off"
+        onFocusCapture={(event) => markInteractionStarted(event.timeStamp)}
+        onInputCapture={(event) => markInteractionStarted(event.timeStamp)}
       >
         <div className="contact-form__honeypot" aria-hidden="true">
           <input
-            ref={honeypotRef}
             id={HONEYPOT_FIELD}
             name={HONEYPOT_FIELD}
             type="text"
@@ -251,6 +266,7 @@ export function ContactForm() {
             data-lpignore="true"
             data-1p-ignore
             data-form-type="other"
+            onChange={(event) => setHoneypotValue(event.currentTarget.value)}
             onFocus={(event) => event.currentTarget.removeAttribute("readonly")}
           />
         </div>
@@ -304,7 +320,7 @@ export function ContactForm() {
           rows={5}
           maxLength={2000}
           showCounter
-          valueLength={(watchedValues.message ?? "").length}
+          valueLength={(formValues.message ?? "").length}
           register={register}
           {...getFieldState("message")}
         />

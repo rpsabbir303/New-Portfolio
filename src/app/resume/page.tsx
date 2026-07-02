@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     "UI UX Bangladesh",
     "Sparktech Agency",
   ],
+  alternates: {
+    canonical: "/resume",
+  },
 };
 
 export default function ResumeRoutePage() {

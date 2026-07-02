@@ -63,7 +63,7 @@ function AnimatedCounter({
 
 export function ResumePage() {
   return (
-    <main className="resume-page">
+    <main id="main-content" className="resume-page">
       <section className="resume-hero">
         <Container>
           <SectionReveal>

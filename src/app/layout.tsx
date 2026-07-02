@@ -103,6 +103,9 @@ export default function RootLayout({
       className={`${inter.variable} ${plusJakarta.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full bg-ambient font-sans text-foreground">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <PersonJsonLd />
         <HashScrollHandler />
         {children}

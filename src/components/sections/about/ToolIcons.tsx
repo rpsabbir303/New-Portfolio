@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { AboutToolIconId } from "@/types/about";
 
@@ -65,12 +66,13 @@ function ToolLogoImage({
   className?: string;
 }) {
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
       width={size}
       height={size}
       className={cn("about-tool__logo", className)}
+      loading="lazy"
     />
   );
 }

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { projects } from "@/data/projects";
 import { ProjectCard } from "@/components/portfolio/ProjectCard";
@@ -5,11 +6,20 @@ import { SectionReveal } from "@/components/ui/SectionReveal";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
+export const metadata: Metadata = {
+  title: "Portfolio — Sabbir Ahmed",
+  description:
+    "Case studies and product design work by Sabbir Ahmed across mobile apps, SaaS dashboards, and web platforms.",
+  alternates: {
+    canonical: "/portfolio",
+  },
+};
+
 export default function PortfolioPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <section className="section-y relative pt-28 lg:pt-36">
           <Container>
             <SectionReveal>

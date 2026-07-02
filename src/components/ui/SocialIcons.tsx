@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 type IconProps = {
@@ -67,13 +68,14 @@ export function DribbbleIcon({ size = 16, className }: IconProps) {
 
 export function BehanceIcon({ size = 16, className }: IconProps) {
   return (
-    <img
+    <Image
       src="/icons/behance.png"
       alt=""
       width={size}
       height={size}
       className={cn("rounded-[3px] object-cover", className)}
       aria-hidden
+      loading="lazy"
     />
   );
 }
