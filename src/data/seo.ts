@@ -1,4 +1,4 @@
-export const SITE_URL = "https://sabbirahmed-seven.vercel.app";
+export const SITE_URL = "https://sabbirahmeduiux.vercel.app";
 
 export const SITE_NAME = "MD Sabbir Ahmed";
 

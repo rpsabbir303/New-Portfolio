@@ -10,12 +10,14 @@ import {
   buildOpenGraph,
   buildTwitter,
   SITE_DESCRIPTION,
+  SITE_KEYWORDS,
   SITE_TITLE,
 } from "@/data/seo";
 
 export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  keywords: [...SITE_KEYWORDS],
   alternates: {
     canonical: "/",
   },
