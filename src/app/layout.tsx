@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { PersonJsonLd } from "@/components/layout/PersonJsonLd";
 import { HashScrollHandler } from "@/components/layout/navigation/HashScrollHandler";
@@ -104,6 +105,7 @@ export default function RootLayout({
         <PersonJsonLd />
         <HashScrollHandler />
         {children}
+        <Analytics />
       </body>
     </html>
   );
