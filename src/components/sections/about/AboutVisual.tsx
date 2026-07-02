@@ -147,7 +147,7 @@ export function AboutVisual({ parallaxX, parallaxY }: AboutVisualProps) {
             <div className="about-visual__photo-wrap">
               <Image
                 src="/hero-profile.png"
-                alt="Sabbir Ahmed — UI/UX Designer"
+                alt="MD Sabbir Ahmed — UI/UX Designer and Product Designer from Bangladesh"
                 width={620}
                 height={760}
                 sizes="(max-width: 1024px) 95vw, 52vw"

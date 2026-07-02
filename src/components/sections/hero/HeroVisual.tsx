@@ -110,7 +110,7 @@ export function HeroVisual({ sectionRef }: HeroVisualProps) {
             <div className="hero-visual__photo-wrap">
               <Image
                 src="/hero-profile.png"
-                alt={`${site.name}, ${site.role}`}
+                alt={`${site.name} — UI/UX Designer and Product Designer from Bangladesh`}
                 width={620}
                 height={760}
                 className="hero-visual__photo"

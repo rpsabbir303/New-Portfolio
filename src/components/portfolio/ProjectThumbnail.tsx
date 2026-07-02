@@ -84,7 +84,7 @@ export function ProjectThumbnailMedia({
         <>
           <Image
             src={thumbnail}
-            alt={project.title}
+            alt={`${project.title} — ${project.category} UI/UX design by MD Sabbir Ahmed`}
             fill
             quality={100}
             sizes={sizes}

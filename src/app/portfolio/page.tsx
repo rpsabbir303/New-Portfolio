@@ -5,19 +5,46 @@ import { ProjectCard } from "@/components/portfolio/ProjectCard";
 import { SectionReveal } from "@/components/ui/SectionReveal";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { BreadcrumbJsonLd } from "@/components/layout/JsonLd";
+import { buildOpenGraph, buildTwitter } from "@/data/seo";
+
+const title = "Portfolio";
+const description =
+  "UI/UX Portfolio and product design case studies by MD Sabbir Ahmed (rpsabbir303) — mobile apps, SaaS dashboards, and web platforms from Bangladesh.";
 
 export const metadata: Metadata = {
-  title: "Portfolio — Sabbir Ahmed",
-  description:
-    "Case studies and product design work by Sabbir Ahmed across mobile apps, SaaS dashboards, and web platforms.",
+  title,
+  description,
+  keywords: [
+    "UI UX Portfolio",
+    "UX Designer Portfolio",
+    "Product Designer Portfolio",
+    "Dashboard Designer",
+    "SaaS Product Designer",
+    "Mobile App Designer",
+    "rpsabbir303",
+    "MD Sabbir Ahmed",
+  ],
   alternates: {
     canonical: "/portfolio",
   },
+  openGraph: buildOpenGraph(
+    `${title} | MD Sabbir Ahmed`,
+    description,
+    "/portfolio"
+  ),
+  twitter: buildTwitter(`${title} | MD Sabbir Ahmed`, description),
 };
 
 export default function PortfolioPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Portfolio", path: "/portfolio" },
+        ]}
+      />
       <Header />
       <main id="main-content">
         <section className="section-y relative pt-28 lg:pt-36">
