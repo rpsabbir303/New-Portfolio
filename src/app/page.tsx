@@ -7,6 +7,7 @@ import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/layout/Footer";
 import { BreadcrumbJsonLd } from "@/components/layout/JsonLd";
 import {
+  buildAlternates,
   buildOpenGraph,
   buildTwitter,
   SITE_DESCRIPTION,
@@ -18,9 +19,7 @@ export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   keywords: [...SITE_KEYWORDS],
-  alternates: {
-    canonical: "/",
-  },
+  alternates: buildAlternates("/"),
   openGraph: buildOpenGraph(SITE_TITLE, SITE_DESCRIPTION, "/"),
   twitter: buildTwitter(SITE_TITLE, SITE_DESCRIPTION),
 };

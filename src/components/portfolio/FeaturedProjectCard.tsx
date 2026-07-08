@@ -54,6 +54,7 @@ export function FeaturedProjectCard({ project, index }: FeaturedProjectCardProps
           rel="noopener noreferrer"
           className="featured-project-card group block"
           style={{ "--card-accent": project.accent } as React.CSSProperties}
+          aria-label={`View case study for ${project.title}`}
         >
           {cardContent}
         </a>

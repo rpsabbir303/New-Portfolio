@@ -3,7 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ResumePage } from "@/components/resume/ResumePage";
 import { BreadcrumbJsonLd } from "@/components/layout/JsonLd";
-import { buildOpenGraph, buildTwitter } from "@/data/seo";
+import { buildAlternates, buildOpenGraph, buildTwitter } from "@/data/seo";
 
 const title = "Resume";
 const description =
@@ -20,9 +20,7 @@ export const metadata: Metadata = {
     "rpsabbir303",
     "SparkTech Agency",
   ],
-  alternates: {
-    canonical: "/resume",
-  },
+  alternates: buildAlternates("/resume"),
   openGraph: buildOpenGraph(`${title} | MD Sabbir Ahmed`, description, "/resume"),
   twitter: buildTwitter(`${title} | MD Sabbir Ahmed`, description),
 };

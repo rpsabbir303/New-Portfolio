@@ -5,8 +5,8 @@ import { ProjectCard } from "@/components/portfolio/ProjectCard";
 import { SectionReveal } from "@/components/ui/SectionReveal";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { BreadcrumbJsonLd } from "@/components/layout/JsonLd";
-import { buildOpenGraph, buildTwitter } from "@/data/seo";
+import { BreadcrumbJsonLd, PortfolioJsonLd } from "@/components/layout/JsonLd";
+import { buildAlternates, buildOpenGraph, buildTwitter } from "@/data/seo";
 
 const title = "Portfolio";
 const description =
@@ -25,9 +25,7 @@ export const metadata: Metadata = {
     "rpsabbir303",
     "MD Sabbir Ahmed",
   ],
-  alternates: {
-    canonical: "/portfolio",
-  },
+  alternates: buildAlternates("/portfolio"),
   openGraph: buildOpenGraph(
     `${title} | MD Sabbir Ahmed`,
     description,
@@ -39,6 +37,7 @@ export const metadata: Metadata = {
 export default function PortfolioPage() {
   return (
     <>
+      <PortfolioJsonLd />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "/" },

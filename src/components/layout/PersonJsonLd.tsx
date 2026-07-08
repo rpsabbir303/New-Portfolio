@@ -1,1 +1,1 @@
-export { JsonLd as PersonJsonLd, BreadcrumbJsonLd } from "@/components/layout/JsonLd";
+export { JsonLd as PersonJsonLd, BreadcrumbJsonLd, PortfolioJsonLd } from "@/components/layout/JsonLd";

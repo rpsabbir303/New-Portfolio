@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -10,6 +10,7 @@ import {
   SITE_NAME,
   SITE_TITLE,
   SITE_URL,
+  THEME_COLOR,
 } from "@/data/seo";
 import "./globals.css";
 
@@ -39,6 +40,11 @@ export const metadata: Metadata = {
   creator: SITE_NAME,
   publisher: SITE_NAME,
   category: "Design",
+  appleWebApp: {
+    capable: true,
+    title: SITE_NAME,
+    statusBarStyle: "black-translucent",
+  },
   robots: {
     index: true,
     follow: true,
@@ -62,6 +68,13 @@ export const metadata: Metadata = {
         },
       }
     : {}),
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: THEME_COLOR },
+    { media: "(prefers-color-scheme: dark)", color: THEME_COLOR },
+  ],
 };
 
 export default function RootLayout({

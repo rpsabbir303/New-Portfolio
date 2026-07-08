@@ -2,6 +2,12 @@ export const SITE_URL = "https://sabbirahmeduiux.vercel.app";
 
 export const SITE_NAME = "MD Sabbir Ahmed";
 
+export const SITE_LANGUAGE = "en-US";
+
+export const THEME_COLOR = "#000000";
+
+export const BACKGROUND_COLOR = "#000000";
+
 export const SITE_TITLE =
   "MD Sabbir Ahmed | UI/UX Designer & Product Designer Portfolio";
 
@@ -90,5 +96,17 @@ export function buildTwitter(title: string, description: string) {
     title,
     description,
     images: [OG_IMAGE.url],
+  };
+}
+
+export function buildAlternates(path: string) {
+  const url = path === "/" ? SITE_URL : `${SITE_URL}${path}`;
+
+  return {
+    canonical: path,
+    languages: {
+      [SITE_LANGUAGE]: url,
+      "x-default": url,
+    },
   };
 }

@@ -1,4 +1,5 @@
 import { site } from "@/data/site";
+import { projects, getProjectCaseStudyHref } from "@/data/projects";
 import {
   OG_IMAGE,
   PERSON_SCHEMA,
@@ -89,6 +90,42 @@ export function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
       name: item.name,
       item: `${SITE_URL}${item.path}`,
     })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
+export function PortfolioJsonLd() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Portfolio Projects by MD Sabbir Ahmed",
+    itemListElement: projects.map((project, index) => {
+      const caseStudyHref = getProjectCaseStudyHref(project);
+      const item: Record<string, unknown> = {
+        "@type": "CreativeWork",
+        name: project.title,
+        description: project.description,
+        url: caseStudyHref ?? `${SITE_URL}/portfolio#${project.id}`,
+        creator: { "@id": `${SITE_URL}/#person` },
+        genre: project.category,
+      };
+
+      if (project.thumbnail) {
+        item.image = `${SITE_URL}${project.thumbnail}`;
+      }
+
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        item,
+      };
+    }),
   };
 
   return (
