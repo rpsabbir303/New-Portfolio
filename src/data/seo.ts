@@ -44,8 +44,19 @@ export const OG_IMAGE = {
   alt: "MD Sabbir Ahmed — UI/UX Designer & Product Designer Portfolio",
 } as const;
 
+export const SITE_ALTERNATE_NAMES = [
+  "sabbirahmeduiux",
+  "Sabbir Ahmed Portfolio",
+  "MD Sabbir Ahmed Portfolio",
+];
+
 export const PERSON_SCHEMA = {
-  alternateName: ["rpsabbir303", "Sabbir Ahmed", "MD Sabbir Ahmed"],
+  alternateName: [
+    "Sabbir Ahmed",
+    "MD. Sabbir Ahmed",
+    "rpsabbir303",
+    "sabbirahmeduiux",
+  ],
   jobTitle: "UI/UX Designer & Product Designer",
   worksFor: {
     "@type": "Organization",

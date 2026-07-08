@@ -3,6 +3,7 @@ import { projects, getProjectCaseStudyHref } from "@/data/projects";
 import {
   OG_IMAGE,
   PERSON_SCHEMA,
+  SITE_ALTERNATE_NAMES,
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_TITLE,
@@ -43,6 +44,7 @@ export function JsonLd() {
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
+    alternateName: SITE_ALTERNATE_NAMES,
     url: SITE_URL,
     logo: `${SITE_URL}${OG_IMAGE.url}`,
     image: `${SITE_URL}${OG_IMAGE.url}`,
@@ -55,11 +57,13 @@ export function JsonLd() {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     name: SITE_TITLE,
+    alternateName: SITE_ALTERNATE_NAMES,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     inLanguage: "en-US",
     publisher: { "@id": `${SITE_URL}/#organization` },
     author: { "@id": `${SITE_URL}/#person` },
+    about: { "@id": `${SITE_URL}/#person` },
   };
 
   const graph = {

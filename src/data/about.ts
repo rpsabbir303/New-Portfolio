@@ -53,5 +53,5 @@ export const aboutContent = {
   label: "About Me",
   headline: "Turning Ideas Into Meaningful Digital Experiences",
   description:
-    "I'm Sabbir Ahmed, a UI/UX Designer with 3+ years of experience crafting intuitive digital products and 2+ years in graphic design. I help startups and businesses transform ideas into user-friendly mobile apps, SaaS platforms, dashboards, and web experiences through research-driven design and scalable design systems.",
+    "I'm MD Sabbir Ahmed, a UI/UX Designer and Product Designer based in Bangladesh with 3+ years of experience crafting intuitive digital products and 2+ years in graphic design. I help startups and businesses transform ideas into user-friendly mobile apps, SaaS platforms, dashboards, and web experiences through research-driven design and scalable design systems.",
 };
