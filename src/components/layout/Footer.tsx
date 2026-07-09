@@ -2,17 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Download, Loader2, Mail, MapPin, Phone } from "lucide-react";
+import { Download, Mail, MapPin, Phone } from "lucide-react";
 import { site } from "@/data/site";
 import { resumeHero } from "@/data/resume";
 import { Container } from "@/components/ui/Container";
-import { ContactToast } from "@/components/contact/ContactToast";
 import {
   BehanceIcon,
   DribbbleIcon,
   LinkedInIcon,
 } from "@/components/ui/SocialIcons";
-import { useResumePdfDownload } from "@/hooks/useResumePdfDownload";
 import { getSectionHref } from "@/lib/navigation";
 import "@/components/layout/footer.css";
 
@@ -57,7 +55,6 @@ const CONTACT_CARDS = [
 export function Footer() {
   const pathname = usePathname();
   const contactHref = getSectionHref("contact", pathname);
-  const { loading, toast, dismissToast, handleDownload } = useResumePdfDownload();
 
   return (
     <footer className="site-footer">
@@ -88,26 +85,14 @@ export function Footer() {
                 >
                   Hire Me
                 </Link>
-                <button
-                  type="button"
+                <a
+                  href={site.resumePdfPath}
+                  download={site.resumePdfFilename}
                   className="site-footer__btn site-footer__btn--ghost"
-                  onClick={handleDownload}
-                  disabled={loading}
-                  aria-busy={loading}
                 >
-                  {loading ? (
-                    <Loader2
-                      size={16}
-                      className="site-footer__btn-spinner"
-                      aria-hidden
-                    />
-                  ) : (
-                    <Download size={16} aria-hidden />
-                  )}
-                  <span>
-                    {loading ? "Generating PDF..." : "Download Resume"}
-                  </span>
-                </button>
+                  <Download size={16} aria-hidden />
+                  <span>Download Resume</span>
+                </a>
               </div>
             </div>
 
@@ -191,15 +176,6 @@ export function Footer() {
         </div>
       </Container>
 
-      {toast ? (
-        <ContactToast
-          type={toast.type}
-          title={toast.title}
-          description={toast.description}
-          visible
-          onDismiss={dismissToast}
-        />
-      ) : null}
     </footer>
   );
 }

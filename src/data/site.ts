@@ -17,6 +17,8 @@ export const site = {
     dribbble: "https://dribbble.com/rpsabbir303",
     behance: "https://www.behance.net/rpsabbir303",
   },
+  resumePdfPath: "/resume/MD_Sabbir_Ahmed_CV.pdf",
+  resumePdfFilename: "MD_Sabbir_Ahmed_CV.pdf",
 };
 
 export const experience = [

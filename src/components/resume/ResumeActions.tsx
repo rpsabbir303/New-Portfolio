@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Download, Loader2 } from "lucide-react";
-import { ContactToast } from "@/components/contact/ContactToast";
-import { useResumePdfDownload } from "@/hooks/useResumePdfDownload";
+import { Download } from "lucide-react";
+import { site } from "@/data/site";
 
 type ResumeActionsProps = {
   mode?: "hero" | "download" | "cta";
@@ -14,15 +13,6 @@ export function ResumeActions({
   mode = "hero",
   className,
 }: ResumeActionsProps) {
-  const {
-    loading,
-    previewLoading,
-    toast,
-    dismissToast,
-    handleDownload,
-    handlePreview,
-  } = useResumePdfDownload();
-
   const downloadLabel =
     mode === "download" ? "Download PDF Resume" : "Download Resume";
 
@@ -30,34 +20,25 @@ export function ResumeActions({
     <div className={className}>
       <div className="resume-actions">
         {mode !== "cta" ? (
-          <button
-            type="button"
+          <a
+            href={site.resumePdfPath}
+            download={site.resumePdfFilename}
             className="resume-btn resume-btn--primary"
-            onClick={handleDownload}
-            disabled={loading}
-            aria-busy={loading}
           >
-            {loading ? (
-              <Loader2 size={16} className="resume-btn__spinner" aria-hidden />
-            ) : (
-              <Download size={16} aria-hidden />
-            )}
-            <span>{loading ? "Generating PDF..." : downloadLabel}</span>
-          </button>
+            <Download size={16} aria-hidden />
+            <span>{downloadLabel}</span>
+          </a>
         ) : null}
 
         {mode === "download" ? (
-          <button
-            type="button"
+          <a
+            href={site.resumePdfPath}
             className="resume-btn resume-btn--ghost"
-            onClick={handlePreview}
-            disabled={loading || previewLoading}
-            aria-busy={previewLoading}
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <span>
-              {previewLoading ? "Opening Preview..." : "Preview Resume"}
-            </span>
-          </button>
+            <span>Preview Resume</span>
+          </a>
         ) : null}
 
         {mode === "hero" || mode === "cta" ? (
@@ -66,16 +47,6 @@ export function ResumeActions({
           </Link>
         ) : null}
       </div>
-
-      {toast ? (
-        <ContactToast
-          type={toast.type}
-          title={toast.title}
-          description={toast.description}
-          visible
-          onDismiss={dismissToast}
-        />
-      ) : null}
     </div>
   );
 }
