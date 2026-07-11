@@ -40,7 +40,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="hero-section scroll-mt-28 relative min-h-screen overflow-hidden pt-28 pb-24 lg:pt-36 lg:pb-32"
+      className="hero-section scroll-mt-28 relative min-h-0 overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-24 lg:pt-36 lg:pb-32"
     >
       <HeroBackground />
 

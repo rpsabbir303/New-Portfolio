@@ -9,9 +9,9 @@ export function Contact() {
   return (
     <section id="contact" className="section-y scroll-mt-28">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16">
           <SectionReveal>
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               <div>
                 <span className="section-label">Contact</span>
                 <h2 className="section-heading">

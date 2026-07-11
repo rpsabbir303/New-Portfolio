@@ -46,10 +46,10 @@ export default function PortfolioPage() {
       />
       <Header />
       <main id="main-content">
-        <section className="section-y relative pt-28 lg:pt-36">
+        <section className="section-y relative pt-24 sm:pt-28 lg:pt-36">
           <Container>
             <SectionReveal>
-              <div className="mb-16 max-w-2xl">
+              <div className="mb-10 max-w-2xl sm:mb-12 md:mb-16">
                 <span className="section-label">Portfolio</span>
                 <h1 className="section-heading">All Projects</h1>
                 <p className="section-intro">

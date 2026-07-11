@@ -197,14 +197,15 @@
 .site-footer__headline {
   margin: 0;
   font-family: var(--font-plus-jakarta), system-ui, sans-serif;
-  font-size: clamp(2.25rem, 6.5vw, 4.25rem);
+  font-size: clamp(1.85rem, 6.5vw, 4.25rem);
   font-weight: 800;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.035em;
   background: linear-gradient(180deg, #ffffff 0%, #d4d4d4 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  overflow-wrap: break-word;
 }
 
 .site-footer__description {

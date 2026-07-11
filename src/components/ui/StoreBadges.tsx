@@ -8,7 +8,7 @@ export type StoreBadgesProps = {
 };
 
 const badgeLinkClass =
-  "store-badge group flex cursor-pointer items-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 transition-all duration-300 hover:scale-[1.04] hover:border-accent/35 hover:bg-white/10 hover:shadow-[0_8px_28px_rgba(255,0,92,0.35)]";
+  "store-badge group flex min-h-11 cursor-pointer items-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 transition-all duration-300 hover:border-accent/35 hover:bg-white/10 hover:shadow-[0_8px_28px_rgba(255,0,92,0.35)] [@media(hover:hover)_and_(pointer:fine)]:hover:scale-[1.04]";
 
 export function StoreBadges({
   appStoreUrl,

@@ -65,9 +65,15 @@
 .hero-grid {
   display: grid;
   align-items: center;
-  gap: 3rem;
-  min-height: calc(100vh - 8rem);
+  gap: 2.25rem;
+  min-height: calc(100svh - 8rem);
   overflow: hidden;
+}
+
+@media (min-width: 480px) {
+  .hero-grid {
+    gap: 2.75rem;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -75,6 +81,7 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
     gap: 2rem 4rem;
     align-items: stretch;
+    min-height: calc(100vh - 8rem);
   }
 }
 
@@ -88,8 +95,15 @@
 .hero-content {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 1.25rem;
   max-width: 36rem;
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .hero-content {
+    gap: 1.75rem;
+  }
 }
 
 .hero-content__eyebrow {
@@ -111,23 +125,25 @@
 }
 
 .hero-content__headline {
-  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-size: clamp(2rem, 7.2vw, 4.25rem);
   font-weight: 700;
-  line-height: 1.06;
+  line-height: 1.08;
   letter-spacing: -0.03em;
   color: #fff;
+  overflow-wrap: break-word;
 }
 
 .hero-content__subtitle {
-  font-size: clamp(1.35rem, 2.8vw, 2rem);
+  font-size: clamp(1.15rem, 3.6vw, 2rem);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
   color: var(--accent);
+  overflow-wrap: break-word;
 }
 
 .hero-content__description {
   max-width: 32rem;
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 2.8vw, 1.05rem);
   line-height: 1.75;
   color: #9ca3af;
 }
@@ -136,8 +152,15 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.25rem;
-  padding-top: 0.5rem;
+  gap: 1rem;
+  padding-top: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .hero-content__actions {
+    gap: 1.25rem;
+    padding-top: 0.5rem;
+  }
 }
 
 .hero-content__socials {
@@ -191,10 +214,17 @@
   grid-template: 1fr / 1fr;
   width: 100%;
   height: 100%;
-  max-height: min(52vh, 420px);
-  min-height: 360px;
+  max-height: min(48vh, 360px);
+  min-height: 280px;
   overflow: hidden;
   isolation: isolate;
+}
+
+@media (min-width: 390px) {
+  .hero-visual__stage {
+    max-height: min(50vh, 400px);
+    min-height: 320px;
+  }
 }
 
 @media (min-width: 640px) {
@@ -279,8 +309,8 @@
 }
 
 .hero-visual__g-bg {
-  width: clamp(500px, 68cqw, 700px);
-  height: clamp(500px, 68cqw, 700px);
+  width: clamp(280px, 68cqw, 700px);
+  height: clamp(280px, 68cqw, 700px);
   opacity: 0.065;
 }
 
@@ -330,7 +360,7 @@
 .hero-visual__name-back {
   margin: 0;
   padding-top: 2%;
-  font-size: clamp(5rem, 32cqw, 11rem);
+  font-size: clamp(3.25rem, 32cqw, 11rem);
   font-weight: 900;
   line-height: 0.88;
   letter-spacing: 0.14em;
@@ -347,20 +377,29 @@
 .hero-visual__role-front {
   align-self: end;
   justify-self: center;
-  width: 108%;
+  width: 100%;
+  max-width: 100%;
   margin: 0 0 16% 0;
   padding: 0;
   text-align: center;
-  font-size: clamp(1.5rem, 7.5cqw, 2.65rem);
+  font-size: clamp(1.15rem, 7.5cqw, 2.65rem);
   font-weight: 800;
   line-height: 1.15;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.18em;
   -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.68);
   color: transparent;
   pointer-events: none;
   user-select: none;
   paint-order: stroke fill;
-  transform: translateY(-32px);
+  transform: translateY(-24px);
+}
+
+@media (min-width: 640px) {
+  .hero-visual__role-front {
+    width: 108%;
+    letter-spacing: 0.24em;
+    transform: translateY(-32px);
+  }
 }
 
 /* Portrait */

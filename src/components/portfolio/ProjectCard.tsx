@@ -29,13 +29,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <SectionReveal delay={index * 0.05}>
       <article
-        className="project-card group cursor-pointer overflow-hidden rounded-3xl transition-transform duration-300 hover:-translate-y-0.5"
+        className="project-card group cursor-pointer overflow-hidden rounded-3xl"
         style={{ "--card-glow": project.accentGlow } as React.CSSProperties}
         onClick={handleCardClick}
       >
         <div
           className={cn(
-            "grid items-center gap-8 p-6 md:gap-12 md:p-10 lg:grid-cols-2",
+            "grid items-center gap-6 p-5 sm:gap-8 sm:p-6 md:gap-12 md:p-10 lg:grid-cols-2",
             isReversed && "lg:[&>*:first-child]:order-2"
           )}
         >
@@ -47,7 +47,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               >
                 {project.category}
               </span>
-              <h3 className="font-display text-2xl font-bold leading-tight text-white md:text-3xl lg:text-4xl">
+              <h3 className="font-display text-[1.35rem] font-bold leading-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
                 {project.title}
               </h3>
             </div>

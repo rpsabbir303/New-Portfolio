@@ -46,13 +46,13 @@ export function FeaturedProjectCard({ project, index }: FeaturedProjectCardProps
   );
 
   return (
-    <SectionReveal delay={index * 0.08}>
+    <SectionReveal delay={index * 0.08} className="h-full">
       {hasCaseStudy && caseStudyHref ? (
         <a
           href={caseStudyHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="featured-project-card group block"
+          className="featured-project-card group block h-full"
           style={{ "--card-accent": project.accent } as React.CSSProperties}
           aria-label={`View case study for ${project.title}`}
         >
@@ -60,7 +60,7 @@ export function FeaturedProjectCard({ project, index }: FeaturedProjectCardProps
         </a>
       ) : (
         <div
-          className="featured-project-card group block"
+          className="featured-project-card group block h-full"
           style={{ "--card-accent": project.accent } as React.CSSProperties}
         >
           {cardContent}

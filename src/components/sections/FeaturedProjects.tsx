@@ -29,7 +29,7 @@ export function FeaturedProjects() {
           </div>
         </SectionReveal>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        <div className="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {projects.map((project, index) => (
             <FeaturedProjectCard key={project.id} project={project} index={index} />
           ))}

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { site } from "@/data/site";
@@ -17,6 +17,24 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const closeMenu = () => setOpen(false);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeMenu();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
 
   const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (pathname === "/") {
@@ -67,23 +85,27 @@ export function Header() {
 
           <button
             type="button"
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-white lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 text-white lg:hidden"
             onClick={() => setOpen(!open)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
+            aria-controls="mobile-nav-panel"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </Container>
 
         <div
+          id="mobile-nav-panel"
           className={cn(
-            "overflow-hidden border-t border-white/5 bg-black/95 transition-all duration-300 lg:hidden",
-            open ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
+            "overflow-y-auto overflow-x-hidden border-t border-white/5 bg-black/95 transition-all duration-300 lg:hidden",
+            open
+              ? "max-h-[min(32rem,calc(100dvh-4.5rem))] opacity-100"
+              : "max-h-0 opacity-0"
           )}
         >
           <Container className="py-4">
-            <nav className="flex flex-col gap-1">
+            <nav className="flex flex-col gap-1" aria-label="Mobile">
               {HEADER_NAV_ITEMS.map((item) =>
                 item.type === "section" ? (
                   <NavLink
@@ -93,7 +115,7 @@ export function Header() {
                     showIndicator={false}
                     onNavigate={closeMenu}
                     className={cn(
-                      "w-full rounded-lg px-3 py-2.5 !items-start",
+                      "min-h-11 w-full rounded-lg px-3 py-3 !items-start",
                       "hover:bg-white/5"
                     )}
                   />
@@ -106,7 +128,7 @@ export function Header() {
                     showIndicator={false}
                     onNavigate={closeMenu}
                     className={cn(
-                      "w-full rounded-lg px-3 py-2.5 !items-start",
+                      "min-h-11 w-full rounded-lg px-3 py-3 !items-start",
                       "hover:bg-white/5"
                     )}
                   />
@@ -117,19 +139,19 @@ export function Header() {
                   Contact
                 </p>
                 <ul className="space-y-2.5 px-3 text-sm text-neutral-400">
-                  <li className="flex items-center gap-2.5">
+                  <li className="flex min-h-11 items-center gap-2.5">
                     <Phone size={14} className="shrink-0 text-accent" />
                     <a href={`tel:${site.phoneE164}`} className="hover:text-white">
                       {site.phone}
                     </a>
                   </li>
-                  <li className="flex items-center gap-2.5">
+                  <li className="flex min-h-11 items-center gap-2.5">
                     <Mail size={14} className="shrink-0 text-accent" />
                     <a href={`mailto:${site.email}`} className="hover:text-white">
                       {site.email}
                     </a>
                   </li>
-                  <li className="flex items-start gap-2.5">
+                  <li className="flex items-start gap-2.5 py-2">
                     <MapPin size={14} className="mt-0.5 shrink-0 text-accent" />
                     <span>{site.address}</span>
                   </li>
@@ -143,7 +165,7 @@ export function Header() {
               </div>
               <Button
                 href="#contact"
-                className="mt-4 w-full"
+                className="mt-4 min-h-11 w-full"
                 onNavigate={closeMenu}
               >
                 Hire Me

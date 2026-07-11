@@ -9,10 +9,10 @@ type SocialLinksProps = {
 
 const linkStyles: Record<NonNullable<SocialLinksProps["variant"]>, string> = {
   header:
-    "social-link flex h-9 w-9 items-center justify-center rounded-full text-neutral-400 transition-all hover:-translate-y-0.5 hover:text-accent",
+    "social-link flex h-11 w-11 items-center justify-center rounded-full text-neutral-400 transition-all hover:-translate-y-0.5 hover:text-accent",
   hero: "social-link hero-content__social-link",
   footer:
-    "social-link flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-neutral-400 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent",
+    "social-link flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-neutral-400 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent",
   contact:
     "social-link flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-neutral-400 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent hover:bg-accent/10",
 };

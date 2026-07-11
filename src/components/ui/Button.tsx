@@ -36,7 +36,7 @@ type ButtonSubmitProps = ButtonBaseProps & {
 type ButtonProps = ButtonLinkProps | ButtonSubmitProps;
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all";
+  "inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all";
 
 const variants = {
   primary: "btn-primary text-white",

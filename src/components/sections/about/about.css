@@ -126,8 +126,14 @@
   position: relative;
   z-index: 2;
   display: grid;
-  gap: 3.5rem;
+  gap: 2.5rem;
   align-items: center;
+}
+
+@media (min-width: 640px) {
+  .about-grid {
+    gap: 3.5rem;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -141,11 +147,18 @@
 .about-visual {
   position: relative;
   width: 100%;
-  min-height: clamp(30rem, 74vw, 40rem);
+  min-height: clamp(22rem, 72vw, 34rem);
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  overflow: visible;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .about-visual {
+    overflow: visible;
+  }
 }
 
 .about-visual__stage {
@@ -233,20 +246,29 @@
 .about-visual__role-front {
   align-self: end;
   justify-self: center;
-  width: 108%;
+  width: 100%;
+  max-width: 100%;
   margin: 0 0 16% 0;
   padding: 0;
   text-align: center;
-  font-size: clamp(1.25rem, 6.5cqw, 2.25rem);
+  font-size: clamp(1.1rem, 6.5cqw, 2.25rem);
   font-weight: 800;
   line-height: 1.15;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.16em;
   -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.68);
   color: transparent;
   pointer-events: none;
   user-select: none;
   paint-order: stroke fill;
-  transform: translateY(-28px);
+  transform: translateY(-20px);
+}
+
+@media (min-width: 640px) {
+  .about-visual__role-front {
+    width: 108%;
+    letter-spacing: 0.22em;
+    transform: translateY(-28px);
+  }
 }
 
 .about-visual__mesh {
@@ -488,8 +510,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.18rem;
-  min-width: 7.4rem;
-  padding: 0.95rem 1.1rem;
+  min-width: 6.5rem;
+  max-width: calc(100% - 1.5rem);
+  padding: 0.8rem 0.95rem;
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.045);
   backdrop-filter: blur(22px);
@@ -506,13 +529,22 @@
     box-shadow 0.4s ease;
 }
 
-.about-stat-card:hover {
-  border-color: rgba(255, 0, 92, 0.28);
-  background: rgba(255, 255, 255, 0.07);
-  box-shadow:
-    0 20px 48px -12px rgba(0, 0, 0, 0.7),
-    0 0 56px -14px rgba(255, 0, 92, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+@media (min-width: 640px) {
+  .about-stat-card {
+    min-width: 7.4rem;
+    padding: 0.95rem 1.1rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-stat-card:hover {
+    border-color: rgba(255, 0, 92, 0.28);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow:
+      0 20px 48px -12px rgba(0, 0, 0, 0.7),
+      0 0 56px -14px rgba(255, 0, 92, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
 }
 
 .about-stat-card__value {
@@ -543,26 +575,40 @@
 
 .about-stat-card--1 {
   top: 4%;
-  right: -4%;
+  right: 0;
 }
 
 .about-stat-card--2 {
   bottom: 26%;
-  left: -8%;
+  left: 0;
 }
 
 .about-stat-card--3 {
   bottom: 6%;
-  right: -2%;
+  right: 0;
 }
 
 .about-stat-card--3 {
   display: none;
 }
 
+@media (min-width: 1024px) {
+  .about-stat-card--1 {
+    right: -4%;
+  }
+
+  .about-stat-card--2 {
+    left: -8%;
+  }
+
+  .about-stat-card--3 {
+    right: -2%;
+  }
+}
+
 @media (max-width: 1023px) {
   .about-visual {
-    min-height: clamp(24rem, 85vw, 32rem);
+    min-height: clamp(22rem, 78vw, 30rem);
     margin: 0 auto;
     max-width: 100%;
     width: 100%;
@@ -570,17 +616,17 @@
 
   .about-stat-card--1 {
     top: 2%;
-    right: -2%;
+    right: 0.5rem;
   }
 
   .about-stat-card--2 {
-    left: -4%;
-    bottom: 20%;
+    left: 0.5rem;
+    bottom: 18%;
   }
 
   .about-stat-card--3 {
-    right: -2%;
-    bottom: 0;
+    right: 0.5rem;
+    bottom: 0.25rem;
   }
 }
 
@@ -593,13 +639,14 @@
 
 .about-content__headline {
   font-family: var(--font-plus-jakarta), system-ui, sans-serif;
-  font-size: clamp(1.9rem, 4.5vw, 3.9rem);
+  font-size: clamp(1.65rem, 5.2vw, 3.9rem);
   font-weight: 800;
-  line-height: 1.04;
+  line-height: 1.08;
   letter-spacing: -0.025em;
   color: #fff;
   max-width: 42rem;
   text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 @media (min-width: 1024px) {
@@ -623,7 +670,7 @@
 }
 
 .about-content__description {
-  font-size: 1rem;
+  font-size: clamp(0.95rem, 2.6vw, 1rem);
   line-height: 1.75;
   color: #9ca3af;
   max-width: 38rem;
@@ -639,6 +686,7 @@
 .about-skill-pill {
   display: inline-flex;
   align-items: center;
+  min-height: 2.25rem;
   padding: 0.45rem 0.95rem;
   border-radius: 999px;
   font-size: 0.78rem;
@@ -654,12 +702,14 @@
     transform 0.3s ease;
 }
 
-.about-skill-pill:hover {
-  border-color: rgba(255, 0, 92, 0.35);
-  background: rgba(255, 0, 92, 0.08);
-  color: #fff;
-  box-shadow: 0 0 24px -6px rgba(255, 0, 92, 0.25);
-  transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+  .about-skill-pill:hover {
+    border-color: rgba(255, 0, 92, 0.35);
+    background: rgba(255, 0, 92, 0.08);
+    color: #fff;
+    box-shadow: 0 0 24px -6px rgba(255, 0, 92, 0.25);
+    transform: translateY(-2px);
+  }
 }
 
 /* ── Tools ── */
@@ -686,8 +736,8 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.85rem 1rem;
-  min-width: 5.5rem;
-  min-height: 5.75rem;
+  min-width: 5.25rem;
+  min-height: 5.5rem;
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -699,13 +749,23 @@
   cursor: default;
 }
 
-.about-tool:hover {
-  border-color: rgba(255, 0, 92, 0.25);
-  background: rgba(255, 0, 92, 0.06);
-  transform: translateY(-4px) scale(1.04);
-  box-shadow:
-    0 16px 32px -12px rgba(0, 0, 0, 0.5),
-    0 0 40px -10px rgba(255, 0, 92, 0.28);
+@media (hover: hover) and (pointer: fine) {
+  .about-tool:hover {
+    border-color: rgba(255, 0, 92, 0.25);
+    background: rgba(255, 0, 92, 0.06);
+    transform: translateY(-4px) scale(1.04);
+    box-shadow:
+      0 16px 32px -12px rgba(0, 0, 0, 0.5),
+      0 0 40px -10px rgba(255, 0, 92, 0.28);
+  }
+
+  .about-tool:hover .about-tool__icon {
+    transform: scale(1.08);
+  }
+
+  .about-tool:hover .about-tool__name {
+    color: #fff;
+  }
 }
 
 .about-tool__icon {
@@ -728,19 +788,11 @@
   border-radius: 0.5rem;
 }
 
-.about-tool:hover .about-tool__icon {
-  transform: scale(1.08);
-}
-
 .about-tool__name {
   font-size: 0.68rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.55);
   transition: color 0.3s ease;
-}
-
-.about-tool:hover .about-tool__name {
-  color: #fff;
 }
 
 /* ── Timeline ── */

@@ -14,6 +14,7 @@
 
 .contact-form__input {
   width: 100%;
+  min-height: 2.75rem;
   border-radius: var(--radius-md, 0.75rem);
   padding: 0.9rem 1rem;
   font-size: 0.875rem;
@@ -256,19 +257,31 @@
 
 .contact-toast {
   position: fixed;
-  right: 1.25rem;
-  bottom: 1.25rem;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  left: auto;
   z-index: 100;
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  max-width: min(26rem, calc(100vw - 2.5rem));
+  width: min(26rem, calc(100% - 2rem));
+  max-width: calc(100% - 2rem);
   padding: 1rem 1.15rem;
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .contact-toast {
+    right: 0.75rem;
+    left: 0.75rem;
+    width: auto;
+    max-width: none;
+  }
 }
 
 .contact-toast__icon-wrap {
