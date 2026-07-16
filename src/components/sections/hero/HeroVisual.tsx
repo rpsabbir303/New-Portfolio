@@ -109,12 +109,15 @@ export function HeroVisual({ sectionRef }: HeroVisualProps) {
           <motion.figure className="hero-visual__figure" style={{ x: portraitX, y: portraitY }}>
             <div className="hero-visual__photo-wrap">
               <Image
-                src="/hero-profile.png"
+                src="/hero-profile.webp"
                 alt={`${site.name} — UI/UX Designer and Product Designer from Bangladesh`}
                 width={620}
                 height={760}
-                className="hero-visual__photo"
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 580px"
+                quality={85}
                 priority
+                fetchPriority="high"
+                className="hero-visual__photo"
               />
             </div>
           </motion.figure>

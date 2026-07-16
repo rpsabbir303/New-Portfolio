@@ -21,8 +21,8 @@ export function FeaturedProjectCard({ project, index }: FeaturedProjectCardProps
       <div className="featured-project-card__visual">
         <ProjectThumbnailMedia
           project={project}
-          priority={index === 0}
-          sizes="(max-width:768px) 100vw, 33vw"
+          priority={false}
+          sizes="(max-width:768px) 100vw, (max-width:1024px) 50vw, 33vw"
           showOverlay={false}
           className="project-thumbnail--featured"
         />

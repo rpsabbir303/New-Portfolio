@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Inter } from "next/font/google";
+import { DeferredMetrics } from "@/components/layout/DeferredMetrics";
 import { PersonJsonLd } from "@/components/layout/PersonJsonLd";
 import {
   buildOpenGraph,
@@ -18,12 +17,8 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
+  preload: true,
+  adjustFontFallback: true,
 });
 
 const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
@@ -83,7 +78,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={inter.variable}>
       <body className="font-sans antialiased">
         <a
           href="#main-content"
@@ -93,8 +88,7 @@ export default function RootLayout({
         </a>
         <PersonJsonLd />
         {children}
-        <Analytics />
-        <SpeedInsights />
+        <DeferredMetrics />
       </body>
     </html>
   );

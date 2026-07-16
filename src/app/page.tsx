@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/sections/Hero";
-import { About } from "@/components/sections/About";
-import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
-import { Contact } from "@/components/sections/Contact";
-import { Footer } from "@/components/layout/Footer";
 import { BreadcrumbJsonLd } from "@/components/layout/JsonLd";
 import {
   buildAlternates,
@@ -14,6 +11,24 @@ import {
   SITE_KEYWORDS,
   SITE_TITLE,
 } from "@/data/seo";
+
+const About = dynamic(() =>
+  import("@/components/sections/About").then((m) => ({ default: m.About }))
+);
+
+const FeaturedProjects = dynamic(() =>
+  import("@/components/sections/FeaturedProjects").then((m) => ({
+    default: m.FeaturedProjects,
+  }))
+);
+
+const Contact = dynamic(() =>
+  import("@/components/sections/Contact").then((m) => ({ default: m.Contact }))
+);
+
+const Footer = dynamic(() =>
+  import("@/components/layout/Footer").then((m) => ({ default: m.Footer }))
+);
 
 export const metadata: Metadata = {
   title: SITE_TITLE,

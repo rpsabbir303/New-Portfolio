@@ -86,9 +86,10 @@ export function ProjectThumbnailMedia({
             src={thumbnail}
             alt={`${project.title} — ${project.category} UI/UX design by MD Sabbir Ahmed`}
             fill
-            quality={100}
+            quality={80}
             sizes={sizes}
             priority={priority}
+            loading={priority ? "eager" : "lazy"}
             className="project-thumbnail__image object-cover object-center transition-transform duration-500 group-hover:scale-105"
             onLoad={() => setHasError(false)}
             onError={() => setHasError(true)}

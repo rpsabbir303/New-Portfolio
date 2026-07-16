@@ -20,20 +20,17 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [75, 80, 85],
     minimumCacheTTL: 60 * 60 * 24 * 30,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     localPatterns: [
-      {
-        pathname: "/icons/**",
-      },
-      {
-        pathname: "/projects/**",
-      },
-      {
-        pathname: "/images/**",
-      },
-      {
-        pathname: "/hero-profile.png",
-      },
+      { pathname: "/icons/**" },
+      { pathname: "/projects/**" },
+      { pathname: "/images/**" },
+      { pathname: "/hero-profile.png" },
+      { pathname: "/hero-profile.webp" },
+      { pathname: "/hero-profile.avif" },
     ],
     remotePatterns: [
       {
@@ -62,9 +59,30 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/:all*(svg|jpg|jpeg|png|webp|avif|gif|ico)",
+        source: "/:all*(svg|jpg|jpeg|png|webp|avif|gif|ico|woff|woff2)",
         headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/resume/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+      {
+        source: "/cv/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
         ],
       },
     ];

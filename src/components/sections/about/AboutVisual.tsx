@@ -146,13 +146,14 @@ export function AboutVisual({ parallaxX, parallaxY }: AboutVisualProps) {
           >
             <div className="about-visual__photo-wrap">
               <Image
-                src="/hero-profile.png"
+                src="/hero-profile.webp"
                 alt="MD Sabbir Ahmed — UI/UX Designer and Product Designer from Bangladesh"
                 width={620}
                 height={760}
                 sizes="(max-width: 1024px) 95vw, 52vw"
+                quality={80}
+                loading="lazy"
                 className="about-visual__photo"
-                priority={false}
               />
             </div>
           </motion.figure>

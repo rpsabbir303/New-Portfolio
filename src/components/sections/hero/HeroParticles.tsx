@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
@@ -12,6 +13,38 @@ const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
 }));
 
 export function HeroParticles() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    let idleId: number | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+    const enable = () => {
+      if (!cancelled) setReady(true);
+    };
+
+    if (typeof window.requestIdleCallback === "function") {
+      idleId = window.requestIdleCallback(enable, { timeout: 1200 });
+    } else {
+      timeoutId = setTimeout(enable, 200);
+    }
+
+    return () => {
+      cancelled = true;
+      if (idleId !== undefined && typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, []);
+
+  if (!ready) {
+    return <div className="hero-particles" aria-hidden />;
+  }
+
   return (
     <div className="hero-particles" aria-hidden>
       {PARTICLES.map((p) => (
